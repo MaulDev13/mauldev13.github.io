@@ -1,0 +1,145 @@
+<!-- =====================================================
+     ABOUT — Skill Tree Section
+     Partial for HTMX (no doctype / html / head / body)
+     ===================================================== -->
+
+<section class="container">
+    <div class="page-stack">
+
+        <!-- Skill Tree -->
+        <div class="card card--flat">
+            <h2 style="margin-bottom: var(--space-md);">Skill Tree</h2>
+            <p class="text-meta" style="margin-bottom: var(--space-md);">
+                Drag node untuk memindahkan. Klik header untuk collapse.
+            </p>
+
+            <div class="tree-container">
+
+                <svg id="tree-lines"></svg>
+
+                <!-- ── LEVEL 1 — Root ─────────────────────────── -->
+                <div
+                    class="tree-node"
+                    id="node-engineering"
+                    data-x="320"
+                    data-y="30"
+                    data-connect="node-backend node-devops node-frontend"
+                >
+                    <div class="tree-header">🧠 Engineering</div>
+                    <div class="tree-content">
+                        Fondasi utama — semua cabang berasal dari sini.
+                    </div>
+                </div>
+
+                <!-- ── LEVEL 2 — Branches ────────────────────── -->
+                <div
+                    class="tree-node"
+                    id="node-backend"
+                    data-x="60"
+                    data-y="220"
+                    data-connect="node-api node-database"
+                >
+                    <div class="tree-header">⚙️ Backend</div>
+                    <div class="tree-content">
+                        REST API, Auth, Clean Architecture
+                    </div>
+                </div>
+
+                <div
+                    class="tree-node"
+                    id="node-devops"
+                    data-x="320"
+                    data-y="220"
+                    data-connect="node-cicd node-monitoring"
+                >
+                    <div class="tree-header">🚀 DevOps</div>
+                    <div class="tree-content">
+                        Docker, Jenkins, CI/CD Pipeline
+                    </div>
+                </div>
+
+                <div
+                    class="tree-node"
+                    id="node-frontend"
+                    data-x="580"
+                    data-y="220"
+                    data-connect="node-ui"
+                >
+                    <div class="tree-header">🎨 Frontend</div>
+                    <div class="tree-content">
+                        HTML, CSS, Vanilla JS, HTMX
+                    </div>
+                </div>
+
+                <!-- ── LEVEL 3 — Leaves ──────────────────────── -->
+                <div
+                    class="tree-node"
+                    id="node-api"
+                    data-x="30"
+                    data-y="430"
+                >
+                    <div class="tree-header">🔌 REST API</div>
+                    <div class="tree-content hidden">
+                        Express, Laravel, FastAPI —
+                        desain endpoint, versioning, rate limiting.
+                    </div>
+                </div>
+
+                <div
+                    class="tree-node"
+                    id="node-database"
+                    data-x="210"
+                    data-y="430"
+                >
+                    <div class="tree-header">🗄️ Database</div>
+                    <div class="tree-content hidden">
+                        PostgreSQL, MySQL, Redis —
+                        indexing, query optimization, migrations.
+                    </div>
+                </div>
+
+                <div
+                    class="tree-node"
+                    id="node-cicd"
+                    data-x="310"
+                    data-y="430"
+                >
+                    <div class="tree-header">🔄 CI/CD</div>
+                    <div class="tree-content hidden">
+                        GitHub Actions, Jenkins —
+                        automated test, build, deploy pipeline.
+                    </div>
+                </div>
+
+                <div
+                    class="tree-node"
+                    id="node-monitoring"
+                    data-x="470"
+                    data-y="430"
+                >
+                    <div class="tree-header">📊 Monitoring</div>
+                    <div class="tree-content hidden">
+                        Grafana, Prometheus, Loki —
+                        alerting, dashboard, log aggregation.
+                    </div>
+                </div>
+
+                <div
+                    class="tree-node"
+                    id="node-ui"
+                    data-x="590"
+                    data-y="430"
+                >
+                    <div class="tree-header">🖼️ UI / UX</div>
+                    <div class="tree-content hidden">
+                        Figma, CSS custom properties,
+                        accessibility, responsive design.
+                    </div>
+                </div>
+
+            </div><!-- /.tree-container -->
+        </div><!-- /.card -->
+
+    </div><!-- /.page-stack -->
+    <script src="../js/ui-interactive.js"></script>
+</section>

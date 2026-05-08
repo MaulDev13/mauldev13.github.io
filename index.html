@@ -20,7 +20,7 @@
     <!-- MAIN APP WRAPPER -->
     <div class="container content-center page-stack">
 
-        <!-- NAVBAR (HTMX LOADED) -->
+        <!-- NAVBAR -->
         <nav
             hx-get="/components/navbar.html"
             hx-trigger="load"
@@ -30,12 +30,10 @@
         <!-- CONTENT AREA -->
         <main class="page-stack">
 
-            <!-- LOADING STATE -->
             <div id="loading" class="hidden">
                 <p class="text-meta">Loading...</p>
             </div>
 
-            <!-- PAGE CONTENT -->
             <section id="content"
                 hx-get="/pages/home.html"
                 hx-trigger="load"
@@ -46,9 +44,7 @@
 
         <!-- FOOTER -->
         <footer style="text-align:center;">
-            <p class="text-meta">
-                Architecture: HTMX
-            </p>
+            <p class="text-meta">Architecture: HTMX</p>
         </footer>
 
     </div>
@@ -56,41 +52,42 @@
     <!-- SCRIPTS -->
     <script src="js/config.js"></script>
     <script src="js/script.js"></script>
+
+    <!--
+        Skill Tree — dimuat di sini (bawah body), bukan di <head>.
+        Tidak pakai defer supaya window.initSkillTree tersedia
+        sebelum htmx:afterSwap pertama kali fired.
+    -->
+    <script src="js/ui-interactive.js"></script>
+
     <script>
         const API_BASE = document
             .querySelector('meta[name="api-base"]')
             .getAttribute("content");
 
-        const BASE_PATH = (
-            location.hostname === "localhost" ||
-            location.hostname === "127.0.0.1"
-        ) ? "" : "";
+        const BASE_PATH = "";
 
         /* =========================================================
-        HTMX ROUTING
+           HTMX ROUTING
         ========================================================= */
         document.body.addEventListener("htmx:configRequest", function (event) {
             let path = event.detail.path;
-
             if (!path) return;
-
             if (path.startsWith("/api")) {
                 event.detail.path = API_BASE + path;
                 return;
             }
-
             if (!path.startsWith("http")) {
                 event.detail.path = BASE_PATH + path;
             }
         });
 
         /* =========================================================
-        NAV ACTIVE STATE
+           NAV ACTIVE STATE
         ========================================================= */
         function setActive(button) {
             document.querySelectorAll(".nav-btn")
                 .forEach(btn => btn.classList.remove("is-active"));
-
             button.classList.add("is-active");
         }
 
@@ -100,7 +97,7 @@
         });
 
         /* =========================================================
-        LOADING STATE
+           LOADING STATE
         ========================================================= */
         const loadingEl = document.getElementById("loading");
 
@@ -113,18 +110,23 @@
         });
 
         /* =========================================================
-        ERROR HANDLING
+           SKILL TREE
+           htmx:afterSwap fired setelah DOM konten baru siap.
+           Cek #tree-lines supaya hanya jalan di halaman about.
+        ========================================================= */
+        document.body.addEventListener("htmx:afterSwap", () => {
+            if (document.getElementById("tree-lines")) {
+                window.initSkillTree?.();
+            }
+        });
+
+        /* =========================================================
+           ERROR HANDLING
         ========================================================= */
         document.body.addEventListener("htmx:responseError", (event) => {
             loadingEl?.classList.add("hidden");
-
             const status = event.detail.xhr.status;
-
-            console.error("HTMX Error:", {
-                status,
-                response: event.detail.xhr.responseText
-            });
-
+            console.error("HTMX Error:", { status, response: event.detail.xhr.responseText });
             handleError(status);
         });
 
@@ -134,27 +136,19 @@
         });
 
         /* =========================================================
-        ERROR ROUTER
+           ERROR ROUTER
         ========================================================= */
         function handleError(status) {
-            if (status === 404) {
-                safeLoadError("/pages/errors/404.html");
-            } else if (status >= 500) {
-                safeLoadError("/pages/errors/500.html");
-            } else {
-                safeLoadError("/pages/errors/general.html");
-            }
+            if (status === 404)     safeLoadError("/pages/errors/404.html");
+            else if (status >= 500) safeLoadError("/pages/errors/500.html");
+            else                    safeLoadError("/pages/errors/general.html");
         }
 
-        /* =========================================================
-        SAFE ERROR LOADER (ANTI-LOOP)
-        ========================================================= */
         let isHandlingError = false;
 
         function safeLoadError(path) {
-            if (isHandlingError) return; // prevent infinite loop
+            if (isHandlingError) return;
             isHandlingError = true;
-
             htmx.ajax("GET", path, "#content");
         }
     </script>

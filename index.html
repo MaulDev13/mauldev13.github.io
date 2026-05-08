@@ -50,108 +50,14 @@
     </div>
 
     <!-- SCRIPTS -->
-    <script src="js/config.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/core/config.js"></script>
+    <script src="js/core/router.js"></script>
+    <script src="js/core/loading.js"></script>
+    <script src="js/core/error.js"></script>
 
-    <!--
-        Skill Tree — dimuat di sini (bawah body), bukan di <head>.
-        Tidak pakai defer supaya window.initSkillTree tersedia
-        sebelum htmx:afterSwap pertama kali fired.
-    -->
-    <script src="js/ui-interactive.js"></script>
+    <script src="js/core/navigation.js"></script>
 
-    <script>
-        const API_BASE = document
-            .querySelector('meta[name="api-base"]')
-            .getAttribute("content");
-
-        const BASE_PATH = "";
-
-        /* =========================================================
-           HTMX ROUTING
-        ========================================================= */
-        document.body.addEventListener("htmx:configRequest", function (event) {
-            let path = event.detail.path;
-            if (!path) return;
-            if (path.startsWith("/api")) {
-                event.detail.path = API_BASE + path;
-                return;
-            }
-            if (!path.startsWith("http")) {
-                event.detail.path = BASE_PATH + path;
-            }
-        });
-
-        /* =========================================================
-           NAV ACTIVE STATE
-        ========================================================= */
-        function setActive(button) {
-            document.querySelectorAll(".nav-btn")
-                .forEach(btn => btn.classList.remove("is-active"));
-            button.classList.add("is-active");
-        }
-
-        document.body.addEventListener("click", function (e) {
-            const btn = e.target.closest(".nav-btn");
-            if (btn) setActive(btn);
-        });
-
-        /* =========================================================
-           LOADING STATE
-        ========================================================= */
-        const loadingEl = document.getElementById("loading");
-
-        document.body.addEventListener("htmx:beforeRequest", () => {
-            loadingEl?.classList.remove("hidden");
-        });
-
-        document.body.addEventListener("htmx:afterRequest", () => {
-            loadingEl?.classList.add("hidden");
-        });
-
-        /* =========================================================
-           SKILL TREE
-           htmx:afterSwap fired setelah DOM konten baru siap.
-           Cek #tree-lines supaya hanya jalan di halaman about.
-        ========================================================= */
-        document.body.addEventListener("htmx:afterSwap", () => {
-            if (document.getElementById("tree-lines")) {
-                window.initSkillTree?.();
-            }
-        });
-
-        /* =========================================================
-           ERROR HANDLING
-        ========================================================= */
-        document.body.addEventListener("htmx:responseError", (event) => {
-            loadingEl?.classList.add("hidden");
-            const status = event.detail.xhr.status;
-            console.error("HTMX Error:", { status, response: event.detail.xhr.responseText });
-            handleError(status);
-        });
-
-        document.body.addEventListener("htmx:sendError", () => {
-            loadingEl?.classList.add("hidden");
-            safeLoadError("/pages/errors/network.html");
-        });
-
-        /* =========================================================
-           ERROR ROUTER
-        ========================================================= */
-        function handleError(status) {
-            if (status === 404)     safeLoadError("/pages/errors/404.html");
-            else if (status >= 500) safeLoadError("/pages/errors/500.html");
-            else                    safeLoadError("/pages/errors/general.html");
-        }
-
-        let isHandlingError = false;
-
-        function safeLoadError(path) {
-            if (isHandlingError) return;
-            isHandlingError = true;
-            htmx.ajax("GET", path, "#content");
-        }
-    </script>
-
+    <script src="js/features/home.js"></script>
+    <script src="js/features/skill-tree.js"></script>
 </body>
 </html>

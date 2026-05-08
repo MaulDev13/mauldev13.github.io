@@ -1,73 +1,143 @@
-<div class="card-group">
+<!-- =====================================================
+     ABOUT — Skill Tree Section
+     Partial for HTMX (no doctype / html / head / body)
+     ===================================================== -->
 
-    <!-- ABOUT CARD -->
-    <div class="card">
+<section class="container">
+    <div class="page-stack">
+        <!-- Skill Tree -->
+        <div class="card card--flat">
+            <h2 style="margin-bottom: var(--space-md);">Skill Tree</h2>
+            <p class="text-meta" style="margin-bottom: var(--space-md);">
+                Drag node untuk memindahkan. Klik header untuk collapse.
+            </p>
 
-        <h1>About Me</h1>
+            <div class="tree-container">
 
-        <p>
-            I’m a backend engineer with hands-on experience building and maintaining production systems.
-            My focus is designing APIs, implementing business logic, and ensuring system reliability in real-world environments.
-        </p>
+                <svg id="tree-lines"></svg>
 
-        <p>
-            I’ve contributed to backend projects including a production chatbot system, where I worked on backend development,
-            system integration, and maintaining stability as part of a cross-functional team.
-        </p>
+                <!-- ── LEVEL 1 — Root ─────────────────────────── -->
+                <div
+                    class="tree-node"
+                    id="node-engineering"
+                    data-x="320"
+                    data-y="30"
+                    data-connect="node-backend node-devops node-frontend"
+                >
+                    <div class="tree-header">🧠 Engineering</div>
+                    <div class="tree-content">
+                        Fondasi utama — semua cabang berasal dari sini.
+                    </div>
+                </div>
 
-        <p>
-            I also have experience with infrastructure and DevOps workflows such as CI/CD, containerization, and deployment pipelines.
-            This gives me a full understanding of systems beyond just application code.
-        </p>
+                <!-- ── LEVEL 2 — Branches ────────────────────── -->
+                <div
+                    class="tree-node"
+                    id="node-backend"
+                    data-x="60"
+                    data-y="220"
+                    data-connect="node-api node-database"
+                >
+                    <div class="tree-header">⚙️ Backend</div>
+                    <div class="tree-content">
+                        REST API, Auth, Clean Architecture
+                    </div>
+                </div>
 
-        <p>
-            I’m comfortable working independently or in a team environment, with a focus on writing code that is maintainable,
-            structured, and easy for others to understand.
-        </p>
+                <div
+                    class="tree-node"
+                    id="node-devops"
+                    data-x="320"
+                    data-y="220"
+                    data-connect="node-cicd node-monitoring"
+                >
+                    <div class="tree-header">🚀 DevOps</div>
+                    <div class="tree-content">
+                        Docker, Jenkins, CI/CD Pipeline
+                    </div>
+                </div>
 
-        <p>
-            Outside of backend development, I explore game development to experiment with system design, logic, and iterative problem solving.
-        </p>
+                <div
+                    class="tree-node"
+                    id="node-frontend"
+                    data-x="580"
+                    data-y="220"
+                    data-connect="node-ui"
+                >
+                    <div class="tree-header">🎨 Frontend</div>
+                    <div class="tree-content">
+                        HTML, CSS, Vanilla JS, HTMX
+                    </div>
+                </div>
 
-        <p>
-            I’m currently looking to grow as a backend engineer by working on systems that require strong problem solving,
-            clear architecture, and long-term maintainability.
-        </p>
+                <!-- ── LEVEL 3 — Leaves ──────────────────────── -->
+                <div
+                    class="tree-node"
+                    id="node-api"
+                    data-x="30"
+                    data-y="430"
+                >
+                    <div class="tree-header">🔌 REST API</div>
+                    <div class="tree-content hidden">
+                        Express, Laravel, FastAPI —
+                        desain endpoint, versioning, rate limiting.
+                    </div>
+                </div>
 
-    </div>
+                <div
+                    class="tree-node"
+                    id="node-database"
+                    data-x="210"
+                    data-y="430"
+                >
+                    <div class="tree-header">🗄️ Database</div>
+                    <div class="tree-content hidden">
+                        PostgreSQL, MySQL, Redis —
+                        indexing, query optimization, migrations.
+                    </div>
+                </div>
 
-    <!-- TECH STACK CARD -->
-    <div class="card">
+                <div
+                    class="tree-node"
+                    id="node-cicd"
+                    data-x="310"
+                    data-y="430"
+                >
+                    <div class="tree-header">🔄 CI/CD</div>
+                    <div class="tree-content hidden">
+                        GitHub Actions, Jenkins —
+                        automated test, build, deploy pipeline.
+                    </div>
+                </div>
 
-        <h2>Technologies</h2>
+                <div
+                    class="tree-node"
+                    id="node-monitoring"
+                    data-x="470"
+                    data-y="430"
+                >
+                    <div class="tree-header">📊 Monitoring</div>
+                    <div class="tree-content hidden">
+                        Grafana, Prometheus, Loki —
+                        alerting, dashboard, log aggregation.
+                    </div>
+                </div>
 
-        <div class="tag-group">
+                <div
+                    class="tree-node"
+                    id="node-ui"
+                    data-x="590"
+                    data-y="430"
+                >
+                    <div class="tree-header">🖼️ UI / UX</div>
+                    <div class="tree-content hidden">
+                        Figma, CSS custom properties,
+                        accessibility, responsive design.
+                    </div>
+                </div>
 
-            <div class="tag-row">
-                <span class="tag-label">Backend</span>
-                <span class="tag">Node.js</span>
-                <span class="tag">Go</span>
-                <span class="tag">C#</span>
-                <span class="tag">Spring Boot</span>
-            </div>
+            </div><!-- /.tree-container -->
+        </div><!-- /.card -->
 
-            <div class="tag-row">
-                <span class="tag-label">DevOps</span>
-                <span class="tag">Docker</span>
-                <span class="tag">Jenkins</span>
-                <span class="tag">GitLab</span>
-                <span class="tag">AWS</span>
-            </div>
-
-            <div class="tag-row">
-                <span class="tag-label">Game Dev</span>
-                <span class="tag">Unity</span>
-                <span class="tag">Godot</span>
-                <span class="tag">Roblox Studio</span>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
+    </div><!-- /.page-stack -->
+</section>

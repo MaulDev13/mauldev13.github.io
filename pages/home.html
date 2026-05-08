@@ -1,74 +1,26 @@
 <section id="user-page">
     <div class="card-group">
-    <div class="card" id="user-card" style="margin:auto; text-align:center; padding:2rem;">
-        <img id="avatar" src="" alt="Avatar" style="width:120px; border-radius:50%; margin-bottom:1rem;">
-        
-        <h1>Hi, I'm Maul 👋</h1>
-        <h5>Backend Engineer</h5>
-        
-        <p>I build backend systems with a focus on maintainability, performance, and clean architecture.</p>
-        <p>Experienced in designing APIs, handling business logic, and ensuring systems run reliably in real-world environments.</p>
-        <p>I also explore game development to experiment with system design, logic, and iterative problem-solving.</p>
-        <p>Interested in building systems that are not only functional, but also maintainable over time.</p>
+        <div class="card" id="user-card" style="margin:auto; text-align:center; padding:2rem;">
+            <img id="avatar" src="" alt="Avatar" style="width:120px; border-radius:50%; margin-bottom:1rem;">
+            
+            <h1>Hi, I'm Maul 👋</h1>
+            <h5>Backend Engineer</h5>
+            
+            <p>I build backend systems with a focus on maintainability, performance, and clean architecture.</p>
+            <p>Experienced in designing APIs, handling business logic, and ensuring systems run reliably in real-world environments.</p>
+            <p>I also explore game development to experiment with system design, logic, and iterative problem-solving.</p>
+            <p>Interested in building systems that are not only functional, but also maintainable over time.</p>
 
-        <div style="display:flex; justify-content:center; gap:2rem; margin:1rem 0;">
-            <div><strong id="followers-count">0</strong><br>Followers</div>
-            <div><strong id="following-count">0</strong><br>Following</div>
+            <div style="display:flex; justify-content:center; gap:2rem; margin:1rem 0;">
+                <div><strong id="followers-count">0</strong><br>Followers</div>
+                <div><strong id="following-count">0</strong><br>Following</div>
+            </div>
+
+            <div style="margin-top:1rem; display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+                <a id="github-link" href="#" target="_blank" class="button button--secondary">
+                    GitHub →
+                </a>
+            </div>
         </div>
-
-        <div style="margin-top:1rem; display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
-            <a id="github-link" href="#" target="_blank" class="button button--secondary">
-                GitHub →
-            </a>
-        </div>
-    </div>
-    </div>
-
-    <script>
-    const username = "MaulDev13";
-    const placeholderAvatar = "assets/cs_avatar.jpg"; // avatar default lokal
-
-    async function loadGitHubUser() {
-        const avatarEl = document.getElementById("avatar");
-        const followersEl = document.getElementById("followers-count");
-        const followingEl = document.getElementById("following-count");
-        const githubLinkEl = document.getElementById("github-link");
-
-        try {
-            const res = await fetch(`https://api.github.com/users/${username}`);
-
-            if (!res.ok) {
-                console.warn("GitHub API response error:", res.status, res.statusText);
-                throw new Error("GitHub API gagal diakses");
-            }
-
-            const data = await res.json();
-
-            // Update elemen dengan data API, fallback ke lokal jika kosong
-            avatarEl.src = data.avatar_url || placeholderAvatar;
-            followersEl.textContent = data.followers ?? "-";
-            followingEl.textContent = data.following ?? "-";
-            githubLinkEl.href = data.html_url || `https://github.com/${username}`;
-
-        } catch (err) {
-            console.error("Error fetching GitHub data:", err);
-
-            // Fallback ke avatar default lokal
-            avatarEl.src = placeholderAvatar;
-            followersEl.textContent = "-";
-            followingEl.textContent = "-";
-            githubLinkEl.href = `https://github.com/${username}`;
-        }
-    }
-
-    // Jalankan saat halaman pertama kali dimuat
-    loadGitHubUser();
-
-    // Jalankan lagi jika dimuat via HTMX ulang
-    document.body.addEventListener('htmx:afterSwap', (e) => {
-        if (e.detail.target.id === 'content' && document.getElementById('user-card')) {
-            loadGitHubUser();
-        }
-    });
-    </script>
+    </div>    
 </section>

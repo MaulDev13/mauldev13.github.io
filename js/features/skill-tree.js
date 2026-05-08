@@ -145,8 +145,10 @@ function drawLines() {
 function startDrag(node, clientX, clientY) {
 
     activeNode = node;
-    offsetX    = clientX - node.offsetLeft;
-    offsetY    = clientY - node.offsetTop;
+    const rect = node.getBoundingClientRect();
+
+    offsetX = clientX - rect.left;
+    offsetY = clientY - rect.top;
 
     node.classList.add("dragging");
     node.style.zIndex = "999";
@@ -271,5 +273,29 @@ function initSkillTree() {
     initCollapse();
     drawLines();
 }
+
+/* =========================================================
+   Auto Bootstrap
+========================================================= */
+
+function bootstrapSkillTree() {
+
+    if (!document.getElementById("tree-lines")) return;
+
+    initSkillTree();
+}
+
+/* =========================================================
+   HTMX Lifecycle
+========================================================= */
+
+document.body.addEventListener(
+    "htmx:afterSwap",
+    bootstrapSkillTree
+);
+
+/* =========================================================
+   Optional Manual Access
+========================================================= */
 
 window.initSkillTree = initSkillTree;

@@ -1,143 +1,526 @@
 <!-- =====================================================
      ABOUT — Skill Tree Section
-     Partial for HTMX (no doctype / html / head / body)
      ===================================================== -->
 
-<section class="container">
+<section class="fullscreen-workspace">
+    
+    <div class="tree-controls">
+        <button onclick="resetCameraToAnchor()" title="Focus on main node" style="
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        ">
+            🎯 Focus
+        </button>
+        <button onclick="setZoom(1)" title="Reset zoom" style="
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        ">
+            🔍 Reset Zoom
+        </button>
+    </div>
     <div class="page-stack">
-        <!-- Skill Tree -->
+
         <div class="card card--flat">
-            <h2 style="margin-bottom: var(--space-md);">Skill Tree</h2>
+            <h2 style="margin-bottom: var(--space-md);">
+                Skill Tree
+            </h2>
+
             <p class="text-meta" style="margin-bottom: var(--space-md);">
-                Drag node untuk memindahkan. Klik header untuk collapse.
+                Drag node untuk memindahkan • Ctrl + Scroll untuk zoom •
+                Klik header untuk expand / collapse
             </p>
 
             <div class="tree-container">
+                <div class="tree-viewport">
 
-                <svg id="tree-lines"></svg>
+                    <svg id="tree-lines"></svg>
 
-                <!-- ── LEVEL 1 — Root ─────────────────────────── -->
-                <div
-                    class="tree-node"
-                    id="node-engineering"
-                    data-x="320"
-                    data-y="30"
-                    data-connect="node-backend node-devops node-frontend"
-                >
-                    <div class="tree-header">🧠 Engineering</div>
-                    <div class="tree-content">
-                        Fondasi utama — semua cabang berasal dari sini.
+                    <!-- =====================================================
+                         CORE ROOT
+                         ===================================================== -->
+
+                    <div
+                        class="tree-node"
+                        id="node-engineering"
+                        data-x="3000"
+                        data-y="2400"
+                        data-connect="
+                            node-backend
+                            node-frontend
+                            node-devops
+                            node-game-dev
+                            node-soft-skill
+                        "
+                    >
+                        <div class="tree-header">
+                            🧠 Fullstack Engineer
+                        </div>
+
+                        <div class="tree-content">
+                            Backend, Frontend, DevOps & Game Development.
+                        </div>
                     </div>
-                </div>
 
-                <!-- ── LEVEL 2 — Branches ────────────────────── -->
-                <div
-                    class="tree-node"
-                    id="node-backend"
-                    data-x="60"
-                    data-y="220"
-                    data-connect="node-api node-database"
-                >
-                    <div class="tree-header">⚙️ Backend</div>
-                    <div class="tree-content">
-                        REST API, Auth, Clean Architecture
+                    <!-- =====================================================
+                         BACKEND
+                         ===================================================== -->
+
+                    <div
+                        class="tree-node"
+                        id="node-backend"
+                        data-x="2200"
+                        data-y="3000"
+                        data-connect="
+                            node-nodejs
+                            node-go
+                            node-spring
+                            node-api-design
+                        "
+                    >
+                        <div class="tree-header">
+                            ⚙️ Backend Engineering
+                        </div>
+
+                        <div class="tree-content">
+                            API architecture, scalability, auth, performance.
+                        </div>
                     </div>
-                </div>
 
-                <div
-                    class="tree-node"
-                    id="node-devops"
-                    data-x="320"
-                    data-y="220"
-                    data-connect="node-cicd node-monitoring"
-                >
-                    <div class="tree-header">🚀 DevOps</div>
-                    <div class="tree-content">
-                        Docker, Jenkins, CI/CD Pipeline
+                    <div
+                        class="tree-node"
+                        id="node-nodejs"
+                        data-x="1800"
+                        data-y="3600"
+                    >
+                        <div class="tree-header">
+                            🟢 Node.js
+                        </div>
+
+                        <div class="tree-content hidden">
+                            REST API, realtime services, authentication,
+                            websocket, modular architecture.
+                        </div>
                     </div>
-                </div>
 
-                <div
-                    class="tree-node"
-                    id="node-frontend"
-                    data-x="580"
-                    data-y="220"
-                    data-connect="node-ui"
-                >
-                    <div class="tree-header">🎨 Frontend</div>
-                    <div class="tree-content">
-                        HTML, CSS, Vanilla JS, HTMX
+                    <div
+                        class="tree-node"
+                        id="node-go"
+                        data-x="2200"
+                        data-y="3800"
+                    >
+                        <div class="tree-header">
+                            🐹 Golang
+                        </div>
+
+                        <div class="tree-content hidden">
+                            High-performance backend, concurrency,
+                            clean architecture, microservices.
+                        </div>
                     </div>
-                </div>
 
-                <!-- ── LEVEL 3 — Leaves ──────────────────────── -->
-                <div
-                    class="tree-node"
-                    id="node-api"
-                    data-x="30"
-                    data-y="430"
-                >
-                    <div class="tree-header">🔌 REST API</div>
-                    <div class="tree-content hidden">
-                        Express, Laravel, FastAPI —
-                        desain endpoint, versioning, rate limiting.
+                    <div
+                        class="tree-node"
+                        id="node-spring"
+                        data-x="2600"
+                        data-y="3600"
+                    >
+                        <div class="tree-header">
+                            ☕ Spring Boot
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Enterprise backend, layered architecture,
+                            dependency injection, secure APIs.
+                        </div>
                     </div>
-                </div>
 
-                <div
-                    class="tree-node"
-                    id="node-database"
-                    data-x="210"
-                    data-y="430"
-                >
-                    <div class="tree-header">🗄️ Database</div>
-                    <div class="tree-content hidden">
-                        PostgreSQL, MySQL, Redis —
-                        indexing, query optimization, migrations.
+                    <div
+                        class="tree-node"
+                        id="node-api-design"
+                        data-x="2400"
+                        data-y="4300"
+                    >
+                        <div class="tree-header">
+                            🔌 API Architecture
+                        </div>
+
+                        <div class="tree-content hidden">
+                            RESTful API, JWT, versioning,
+                            scalability & system design.
+                        </div>
                     </div>
-                </div>
 
-                <div
-                    class="tree-node"
-                    id="node-cicd"
-                    data-x="310"
-                    data-y="430"
-                >
-                    <div class="tree-header">🔄 CI/CD</div>
-                    <div class="tree-content hidden">
-                        GitHub Actions, Jenkins —
-                        automated test, build, deploy pipeline.
+                    <!-- =====================================================
+                         FRONTEND
+                         ===================================================== -->
+
+                    <div
+                        class="tree-node"
+                        id="node-frontend"
+                        data-x="3200"
+                        data-y="3000"
+                        data-connect="
+                            node-flutter
+                            node-vanilla
+                            node-uiux
+                        "
+                    >
+                        <div class="tree-header">
+                            🎨 Frontend Engineering
+                        </div>
+
+                        <div class="tree-content">
+                            UI systems, responsive design,
+                            interaction & UX thinking.
+                        </div>
                     </div>
-                </div>
 
-                <div
-                    class="tree-node"
-                    id="node-monitoring"
-                    data-x="470"
-                    data-y="430"
-                >
-                    <div class="tree-header">📊 Monitoring</div>
-                    <div class="tree-content hidden">
-                        Grafana, Prometheus, Loki —
-                        alerting, dashboard, log aggregation.
+                    <div
+                        class="tree-node"
+                        id="node-flutter"
+                        data-x="3000"
+                        data-y="3700"
+                    >
+                        <div class="tree-header">
+                            📱 Flutter
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Cross-platform mobile app development,
+                            state management, responsive UI.
+                        </div>
                     </div>
-                </div>
 
-                <div
-                    class="tree-node"
-                    id="node-ui"
-                    data-x="590"
-                    data-y="430"
-                >
-                    <div class="tree-header">🖼️ UI / UX</div>
-                    <div class="tree-content hidden">
-                        Figma, CSS custom properties,
-                        accessibility, responsive design.
+                    <div
+                        class="tree-node"
+                        id="node-vanilla"
+                        data-x="3500"
+                        data-y="3600"
+                    >
+                        <div class="tree-header">
+                            🌐 Vanilla JavaScript
+                        </div>
+
+                        <div class="tree-content hidden">
+                            HTMX, DOM manipulation,
+                            component architecture & browser APIs.
+                        </div>
                     </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-uiux"
+                        data-x="3300"
+                        data-y="4300"
+                    >
+                        <div class="tree-header">
+                            🖼️ UI / UX Thinking
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Accessibility, spacing systems,
+                            interaction design & visual hierarchy.
+                        </div>
+                    </div>
+
+                    <!-- =====================================================
+                         DEVOPS
+                         ===================================================== -->
+
+                    <div
+                        class="tree-node"
+                        id="node-devops"
+                        data-x="4200"
+                        data-y="3000"
+                        data-connect="
+                            node-docker
+                            node-k8s
+                            node-aws
+                            node-sonarqube
+                            node-nexus
+                        "
+                    >
+                        <div class="tree-header">
+                            🚀 DevOps Engineering
+                        </div>
+
+                        <div class="tree-content">
+                            CI/CD, containerization,
+                            infrastructure & deployment.
+                        </div>
+                    </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-docker"
+                        data-x="3900"
+                        data-y="3600"
+                    >
+                        <div class="tree-header">
+                            🐳 Docker
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Containerization, reproducible environments,
+                            deployment optimization.
+                        </div>
+                    </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-k8s"
+                        data-x="4400"
+                        data-y="3800"
+                    >
+                        <div class="tree-header">
+                            ☸️ Kubernetes
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Orchestration, scaling,
+                            service deployment & resilience.
+                        </div>
+                    </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-aws"
+                        data-x="4800"
+                        data-y="3500"
+                    >
+                        <div class="tree-header">
+                            ☁️ AWS
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Cloud deployment, compute,
+                            networking & infrastructure management.
+                        </div>
+                    </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-sonarqube"
+                        data-x="4000"
+                        data-y="4300"
+                    >
+                        <div class="tree-header">
+                            🔍 SonarQube
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Static analysis, code quality,
+                            maintainability & technical debt monitoring.
+                        </div>
+                    </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-nexus"
+                        data-x="4700"
+                        data-y="4300"
+                    >
+                        <div class="tree-header">
+                            📦 Nexus Repository
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Artifact management,
+                            dependency registry & CI integration.
+                        </div>
+                    </div>
+
+                    <!-- =====================================================
+                         GAME DEVELOPMENT
+                         ===================================================== -->
+
+                    <div
+                        class="tree-node"
+                        id="node-game-dev"
+                        data-x="5200"
+                        data-y="2400"
+                        data-connect="
+                            node-unity
+                            node-godot
+                            node-roblox
+                            node-game-backend
+                        "
+                    >
+                        <div class="tree-header">
+                            🎮 Game Development
+                        </div>
+
+                        <div class="tree-content">
+                            Multiplayer systems,
+                            gameplay architecture & tooling.
+                        </div>
+                    </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-unity"
+                        data-x="5000"
+                        data-y="3100"
+                    >
+                        <div class="tree-header">
+                            🧩 Unity
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Gameplay systems,
+                            tooling & cross-platform game development.
+                        </div>
+                    </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-godot"
+                        data-x="5500"
+                        data-y="3300"
+                    >
+                        <div class="tree-header">
+                            🌀 Godot
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Lightweight engine workflows,
+                            scripting & rapid prototyping.
+                        </div>
+                    </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-roblox"
+                        data-x="5900"
+                        data-y="2900"
+                    >
+                        <div class="tree-header">
+                            🟦 Roblox Studio
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Multiplayer experiences,
+                            Lua scripting & scalable gameplay systems.
+                        </div>
+                    </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-game-backend"
+                        data-x="5400"
+                        data-y="4000"
+                    >
+                        <div class="tree-header">
+                            🌍 Game Backend
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Matchmaking, realtime systems,
+                            player data & scalable services.
+                        </div>
+                    </div>
+
+                    <!-- =====================================================
+                         SOFT SKILLS
+                         ===================================================== -->
+
+                    <div
+                        class="tree-node"
+                        id="node-soft-skill"
+                        data-x="3400"
+                        data-y="1800"
+                        data-connect="
+                            node-problem-solving
+                            node-system-thinking
+                            node-leadership
+                            node-communication
+                        "
+                    >
+                        <div class="tree-header">
+                            🤝 Professional Skills
+                        </div>
+
+                        <div class="tree-content">
+                            Engineering mindset & team collaboration.
+                        </div>
+                    </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-problem-solving"
+                        data-x="2800"
+                        data-y="1200"
+                    >
+                        <div class="tree-header">
+                            🧩 Problem Solving
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Analytical thinking,
+                            debugging & architecture decisions.
+                        </div>
+                    </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-system-thinking"
+                        data-x="3500"
+                        data-y="1000"
+                    >
+                        <div class="tree-header">
+                            🏗️ System Thinking
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Understanding relationships between
+                            infrastructure, backend & frontend systems.
+                        </div>
+                    </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-leadership"
+                        data-x="4200"
+                        data-y="1200"
+                    >
+                        <div class="tree-header">
+                            👥 Leadership
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Initiative, mentoring,
+                            ownership & technical direction.
+                        </div>
+                    </div>
+
+                    <div
+                        class="tree-node"
+                        id="node-communication"
+                        data-x="3700"
+                        data-y="1700"
+                    >
+                        <div class="tree-header">
+                            💬 Communication
+                        </div>
+
+                        <div class="tree-content hidden">
+                            Team collaboration,
+                            technical discussion & documentation.
+                        </div>
+                    </div>
+
                 </div>
+            </div>
 
-            </div><!-- /.tree-container -->
-        </div><!-- /.card -->
+        </div>
 
-    </div><!-- /.page-stack -->
+    </div>
 </section>

@@ -1,0 +1,67 @@
+<div class="card-group">
+
+    <!-- INTRO CARD -->
+    <div class="card">
+
+        <h1>Character Build</h1>
+
+        <p>
+            A structured overview of interconnected technical paths,
+            systems knowledge, and specialization branches built through
+            backend engineering, infrastructure work, and game development.
+        </p>
+
+    </div>
+
+    <!-- CHARACTER BUILD SECTION -->
+    <div class="card">
+
+        <h2>🧭 Character Build</h2>
+
+        <div class="card-group">
+
+            <!-- TABLE -->
+            <div class="card card--sm project-item">
+
+                <button
+                    class="button button--primary"
+                    hx-get="/pages/contents/character-build/table.html"
+                    hx-target="#table-content"
+                    hx-trigger="click once"
+                    hx-swap="innerHTML"
+                    onclick="toggleProject(this, 'table-content')"
+                >
+                    <span>📜 Build Database</span>
+                    <span class="arrow">▼</span>
+                </button>
+
+                <div id="table-content" class="project-content hidden"></div>
+
+            </div>
+
+             <!-- MAP -->
+            <div class="card card--sm project-item">
+
+                <button
+                    class="button button--primary"
+                    hx-get="/pages/contents/character-build/map.html"
+                    hx-target="#map-content"
+                    hx-trigger="click once"
+                    hx-swap="innerHTML"
+                    onclick="toggleProject(this, 'map-content')"
+                >
+                    <span>🗺 Skill Map</span>
+                    <span class="arrow">▼</span>
+                </button>
+
+                <div id="map-content" class="project-content hidden"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/js/features/toggle-ui.js"></script>

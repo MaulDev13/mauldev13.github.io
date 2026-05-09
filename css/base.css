@@ -9,6 +9,11 @@
 	box-sizing: border-box;
 }
 
+html, body {
+	overflow-x: hidden;
+	max-width: 100%;
+}
+
 body {
 	font-family: var(--font-sans);
 	font-size: var(--text-md);

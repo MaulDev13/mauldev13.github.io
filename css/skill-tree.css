@@ -12,6 +12,7 @@
 .tree-container {
     position: relative;
     width: 100%;
+	max-width: 100%;
     height: calc(100dvh - 180px);
     min-height: 400px;
 
@@ -290,4 +291,17 @@
 
 .tree-container::-webkit-scrollbar-corner {
     background: transparent;
+}
+
+.tree-controls button {
+    transition: all 0.15s ease;
+}
+
+.tree-controls button:hover {
+    background: var(--primary-light, #e0f2fe);
+    transform: scale(0.95);
+}
+
+.tree-controls button:active {
+    transform: scale(0.9);
 }

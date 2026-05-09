@@ -1,0 +1,301 @@
+<!-- =====================================================
+     SKILL TREE — Clean Version (One-way connections)
+     ===================================================== -->
+
+<!-- Judul section -->
+<div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:var(--space-sm); flex-shrink:0;">
+    <div>
+        <h2 style="margin-bottom:.25rem;">Skill Tree</h2>
+        <p class="text-meta">Drag node · Klik header untuk collapse · Ctrl + Scroll untuk zoom</p>
+    </div>
+</div>
+
+<!-- Kontrol zoom & viewport -->
+<div style="position: relative; margin-bottom: var(--space-sm);">
+    <div class="tree-controls" style="position: static; width: fit-content; margin-left: auto; background: var(--surface); box-shadow: var(--shadow-sm);">
+        <!-- Zoom controls -->
+        <button class="button button--ghost button--sm" id="zoom-out-btn" title="Zoom out">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+        </button>
+        
+        <span id="zoom-level" class="text-meta" style="min-width: 3rem; text-align: center; font-size: var(--text-sm); font-weight: var(--font-semibold);">100%</span>
+        
+        <button class="button button--ghost button--sm" id="zoom-in-btn" title="Zoom in">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+        </button>
+        
+        <span class="tree-controls__divider"></span>
+        
+        <!-- Viewport controls -->
+        <button class="button button--ghost button--sm" id="reset-viewport-btn" title="Reset viewport ke center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+        </button>
+        
+        <button class="button button--ghost button--sm" id="fit-view-btn" title="Fit semua node ke viewport">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+            </svg>
+        </button>
+        
+        <span class="tree-controls__divider"></span>
+        
+        <!-- Direction pan -->
+        <button class="button button--ghost button--sm" id="pan-up" title="Scroll up">▲</button>
+        <button class="button button--ghost button--sm" id="pan-down" title="Scroll down">▼</button>
+        <button class="button button--ghost button--sm" id="pan-left" title="Scroll left">◀</button>
+        <button class="button button--ghost button--sm" id="pan-right" title="Scroll right">▶</button>
+    </div>
+</div>
+
+<!-- Canvas utama -->
+<div class="tree-container" style="overflow: auto !important;">
+
+    <div class="tree-viewport">
+
+        <svg id="tree-lines"></svg>
+
+        <!-- =====================================================
+             ROOT: Skill Categories
+             ===================================================== -->
+
+        <!-- Category: Soft Skill -->
+        <div class="tree-node"
+             id="node-soft-skill"
+             data-x="-800"
+             data-y="-400"
+             data-connect="node-communication node-teamwork node-timemgmt node-leadership node-problemsolving node-criticalthinking node-adaptability node-emotionalintel node-creativity">
+            <div class="tree-node__header">
+                Soft Skill
+            </div>
+            <div class="tree-node__content">
+                Keterampilan non-teknis yang berhubungan dengan cara bekerja dan berinteraksi.
+            </div>
+        </div>
+
+        <!-- Category: Digital Skill -->
+        <div class="tree-node"
+             id="node-digital-skill"
+             data-x="0"
+             data-y="-400"
+             data-connect="node-cloud-awareness node-cicd node-codequality node-versioncontrol node-containerization node-systemdesign">
+            <div class="tree-node__header">
+                Digital Skill
+            </div>
+            <div class="tree-node__content">
+                Keterampilan penggunaan teknologi modern yang bersifat umum.
+            </div>
+        </div>
+
+        <!-- Category: Hard Skill -->
+        <div class="tree-node"
+             id="node-hard-skill"
+             data-x="800"
+             data-y="-400"
+             data-connect="node-backend-group node-frontend-group node-devops-group node-gamedev-group">
+            <div class="tree-node__header">
+                Hard Skill (Teknis)
+            </div>
+            <div class="tree-node__content">
+                Keterampilan teknis spesifik untuk pengembangan software.
+            </div>
+        </div>
+
+        <!-- =====================================================
+             SOFT SKILL CHILDREN
+             ===================================================== -->
+
+        <div class="tree-node" id="node-communication" data-x="-1200" data-y="-800">
+            <div class="tree-node__header">Komunikasi</div>
+            <div class="tree-node__content">Ability to communicate effectively.</div>
+        </div>
+
+        <div class="tree-node" id="node-teamwork" data-x="-1000" data-y="-1000">
+            <div class="tree-node__header">Kerja Sama Tim</div>
+            <div class="tree-node__content">Collaboration in team environments.</div>
+        </div>
+
+        <div class="tree-node" id="node-timemgmt" data-x="-800" data-y="-1200">
+            <div class="tree-node__header">Manajemen Waktu</div>
+            <div class="tree-node__content">Managing time and priorities effectively.</div>
+        </div>
+
+        <div class="tree-node" id="node-leadership" data-x="-600" data-y="-1000">
+            <div class="tree-node__header">Kepemimpinan</div>
+            <div class="tree-node__content">Guiding and leading teams.</div>
+        </div>
+
+        <div class="tree-node" id="node-problemsolving" data-x="-400" data-y="-800">
+            <div class="tree-node__header">Pemecahan Masalah</div>
+            <div class="tree-node__content">Finding effective solutions to challenges.</div>
+        </div>
+
+        <div class="tree-node" id="node-criticalthinking" data-x="-1400" data-y="-600">
+            <div class="tree-node__header">Berpikir Kritis</div>
+            <div class="tree-node__content">Analyzing problems logically.</div>
+        </div>
+
+        <div class="tree-node" id="node-adaptability" data-x="-1600" data-y="-800">
+            <div class="tree-node__header">Adaptasi</div>
+            <div class="tree-node__content">Adjusting to new environments and changes.</div>
+        </div>
+
+        <div class="tree-node" id="node-emotionalintel" data-x="-1400" data-y="-1000">
+            <div class="tree-node__header">Kecerdasan Emosional</div>
+            <div class="tree-node__content">Understanding and managing emotions.</div>
+        </div>
+
+        <div class="tree-node" id="node-creativity" data-x="-1600" data-y="-1200">
+            <div class="tree-node__header">Kreativitas</div>
+            <div class="tree-node__content">Generating new ideas and solutions.</div>
+        </div>
+
+        <!-- =====================================================
+             DIGITAL SKILL CHILDREN
+             ===================================================== -->
+
+        <div class="tree-node" id="node-cloud-awareness" data-x="-400" data-y="-800">
+            <div class="tree-node__header">Cloud Awareness</div>
+            <div class="tree-node__content">Understanding AWS, Kubernetes, and cloud systems.</div>
+        </div>
+
+        <div class="tree-node" id="node-cicd" data-x="-200" data-y="-1000">
+            <div class="tree-node__header">CI/CD Automation</div>
+            <div class="tree-node__content">Continuous integration and deployment workflows.</div>
+        </div>
+
+        <div class="tree-node" id="node-codequality" data-x="0" data-y="-1200">
+            <div class="tree-node__header">Code Quality Tools</div>
+            <div class="tree-node__content">Using SonarQube and quality gates.</div>
+        </div>
+
+        <div class="tree-node" id="node-versioncontrol" data-x="200" data-y="-1000">
+            <div class="tree-node__header">Version Control Workflow</div>
+            <div class="tree-node__content">Git-based collaboration workflow.</div>
+        </div>
+
+        <div class="tree-node" id="node-containerization" data-x="400" data-y="-800">
+            <div class="tree-node__header">Containerization Concept</div>
+            <div class="tree-node__content">Docker and Kubernetes fundamentals.</div>
+        </div>
+
+        <div class="tree-node" id="node-systemdesign" data-x="200" data-y="-600">
+            <div class="tree-node__header">System Design Basics</div>
+            <div class="tree-node__content">Modern application architecture principles.</div>
+        </div>
+
+        <!-- =====================================================
+             HARD SKILL GROUPS
+             ===================================================== -->
+
+        <!-- Backend Group -->
+        <div class="tree-node" id="node-backend-group" data-x="400" data-y="-200" data-connect="node-go node-nodejs node-spring node-csharp">
+            <div class="tree-node__header">Backend Development</div>
+            <div class="tree-node__content">REST API & backend services.</div>
+        </div>
+
+        <div class="tree-node" id="node-go" data-x="200" data-y="100">
+            <div class="tree-node__header">Go</div>
+            <div class="tree-node__content">Backend development language.</div>
+        </div>
+
+        <div class="tree-node" id="node-nodejs" data-x="400" data-y="200">
+            <div class="tree-node__header">Node JS</div>
+            <div class="tree-node__content">JavaScript backend runtime.</div>
+        </div>
+
+        <div class="tree-node" id="node-spring" data-x="600" data-y="100">
+            <div class="tree-node__header">Spring Boot</div>
+            <div class="tree-node__content">Java backend framework.</div>
+        </div>
+
+        <div class="tree-node" id="node-csharp" data-x="800" data-y="0">
+            <div class="tree-node__header">C#</div>
+            <div class="tree-node__content">.NET backend development.</div>
+        </div>
+
+        <!-- Frontend Group -->
+        <div class="tree-node" id="node-frontend-group" data-x="800" data-y="-200" data-connect="node-flutter node-vanillajs">
+            <div class="tree-node__header">Frontend Development</div>
+            <div class="tree-node__content">UI & cross-platform development.</div>
+        </div>
+
+        <div class="tree-node" id="node-flutter" data-x="1000" data-y="100">
+            <div class="tree-node__header">Flutter</div>
+            <div class="tree-node__content">Cross-platform mobile development.</div>
+        </div>
+
+        <div class="tree-node" id="node-vanillajs" data-x="1200" data-y="0">
+            <div class="tree-node__header">Vanilla JavaScript</div>
+            <div class="tree-node__content">Native web development.</div>
+        </div>
+
+        <!-- DevOps Group -->
+        <div class="tree-node" id="node-devops-group" data-x="1200" data-y="-200" data-connect="node-docker node-sonarqube node-nexus node-aws node-kubernetes">
+            <div class="tree-node__header">DevOps</div>
+            <div class="tree-node__content">Infrastructure & automation.</div>
+        </div>
+
+        <div class="tree-node" id="node-docker" data-x="1000" data-y="200">
+            <div class="tree-node__header">Docker</div>
+            <div class="tree-node__content">Containerization platform.</div>
+        </div>
+
+        <div class="tree-node" id="node-sonarqube" data-x="1200" data-y="300">
+            <div class="tree-node__header">SonarQube</div>
+            <div class="tree-node__content">Code quality analysis tool.</div>
+        </div>
+
+        <div class="tree-node" id="node-nexus" data-x="1400" data-y="200">
+            <div class="tree-node__header">Nexus</div>
+            <div class="tree-node__content">Artifact repository manager.</div>
+        </div>
+
+        <div class="tree-node" id="node-aws" data-x="1600" data-y="100">
+            <div class="tree-node__header">AWS</div>
+            <div class="tree-node__content">Cloud infrastructure platform.</div>
+        </div>
+
+        <div class="tree-node" id="node-kubernetes" data-x="1400" data-y="0">
+            <div class="tree-node__header">Kubernetes</div>
+            <div class="tree-node__content">Container orchestration system.</div>
+        </div>
+
+        <!-- Game Dev Group -->
+        <div class="tree-node" id="node-gamedev-group" data-x="1600" data-y="-200" data-connect="node-unity node-godot node-roblox">
+            <div class="tree-node__header">Game Development</div>
+            <div class="tree-node__content">Multiplayer & gameplay systems.</div>
+        </div>
+
+        <div class="tree-node" id="node-unity" data-x="1800" data-y="0">
+            <div class="tree-node__header">Unity</div>
+            <div class="tree-node__content">Game development engine.</div>
+        </div>
+
+        <div class="tree-node" id="node-godot" data-x="2000" data-y="100">
+            <div class="tree-node__header">Godot</div>
+            <div class="tree-node__content">Open-source game engine.</div>
+        </div>
+
+        <div class="tree-node" id="node-roblox" data-x="2200" data-y="0">
+            <div class="tree-node__header">Roblox Studio</div>
+            <div class="tree-node__content">Roblox game creation tool.</div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="js/features/skill-tree-controller.js"></script>

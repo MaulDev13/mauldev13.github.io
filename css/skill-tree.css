@@ -1,135 +1,293 @@
 /* =========================================================
-   FULLSCREEN PAGE INSIDE HTMX CONTENT
+   SKILL TREE — Component System
+   Tidak mengubah base.css. Height eksplisit di tree-container.
    ========================================================= */
 
-.fullscreen-workspace {
-	width: 100vw;
-	/* height: 100vh; */
 
-	margin-left: calc(50% - 50vw);
-	margin-top: calc(50% - 50vh);
-
-	flex: 1;
-	min-height: 0;
-
-	padding: var(--space-lg);
-
-	display: flex;
-	flex-direction: column;
-
-	overflow: hidden;
-}
-
-/* =========================================================
-   SKILL TREE — Game-style Draggable Nodes
-   ========================================================= */
-
+/* ── tree-container ──────────────────────────────────────
+   Card sepenuh layar, persegi, tidak ikut stretch page.
+   Height calc: viewport dikurangi navbar + padding + judul.
+   Sesuaikan angka 180px jika layout berubah.
+   -------------------------------------------------------- */
 .tree-container {
-	position: relative;
+    position: relative;
+    width: 100%;
+    height: calc(100dvh - 180px);
+    min-height: 400px;
 
-	flex: 1;
-	min-height: 0;
-
-	overflow: auto;
-
-	border: 1px solid var(--border);
-	border-radius: 24px;
-
-	background:
-		linear-gradient(rgba(0,0,0,.03) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(0,0,0,.03) 1px, transparent 1px);
-
-	background-size: 32px 32px;
-	background-color: #f8fafc;
-
-	box-shadow:
-		inset 0 1px 0 rgba(255,255,255,.7),
-		0 10px 40px rgba(0,0,0,.06);
-}
-
-/* center camera initially */
-.tree-container {
-	scroll-behavior: smooth;
-}
-
-.tree-viewport {
-	position: relative;
-
-	/* huge workspace */
-	width: 6000px;
-	height: 6000px;
-
-	/* center spawn area */
-	padding: 2500px;
-
-	transform-origin: top left;
-	will-change: transform;
+    overflow: auto !important;               /* viewport di dalam ini yang scroll */
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background-color: #f8fafc;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, .03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, .03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .8),
+        0 4px 24px rgba(0, 0, 0, .05);
 }
 
 
-/* SVG connector lines */
-#tree-lines {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	pointer-events: none;
-}
-
-/* Node */
-.tree-node {
-	position: absolute;
-	width: 220px;
-	background: #fff;
-	border: 1px solid #e5e7eb;
-	border-radius: 16px;
-	box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
-	user-select: none;
-	cursor: grab;
-	transition: transform .15s ease, box-shadow .2s ease;
-}
-.tree-node:hover    { transform: translateY(-2px); box-shadow: 0 14px 35px rgba(0, 0, 0, .12); }
-.tree-node.dragging { cursor: grabbing; z-index: 999; }
-
-/* Node sections */
-.tree-header {
-	padding: 1rem;
-	font-weight: var(--font-bold);
-	border-bottom: 1px solid #f3f4f6;
-	background: linear-gradient(to right, #eff6ff, #fff);
-}
-
-.tree-content {
-	padding: 1rem;
-	color: #6b7280;
-	line-height: var(--leading-normal);
-}
-
+/* ── tree-controls ───────────────────────────────────────
+   Overlay tombol di sudut kanan atas container.
+   -------------------------------------------------------- */
 .tree-controls {
-	position: absolute;
-	top: 1rem;
-	right: 1rem;
-	z-index: 1000;
-	display: flex;
-	gap: .5rem;
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+
+    padding: .25rem .375rem;
+    background: rgba(255, 255, 255, .9);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
 }
 
-/* Better scrollbar */
+.tree-controls__divider {
+    width: 1px;
+    height: 1rem;
+    background: var(--border);
+    margin: 0 var(--space-xs);
+}
+
+
+/* ── tree-viewport ───────────────────────────────────────
+   Layer yang bisa di-scroll ke semua arah.
+   Sangat besar supaya bisa menampung banyak node.
+   Dimulai dari tengah: JS set scrollLeft dan scrollTop
+   ke (viewportW - containerW) / 2 saat init.
+   -------------------------------------------------------- */
+.tree-viewport {
+    position: relative;
+    width: 4000px;
+    height: 4000px;
+    overflow: visible;          /* node boleh keluar dari batas */
+    will-change: transform;     /* hint GPU untuk zoom JS jika dipakai */
+}
+
+
+/* ── #tree-lines (SVG) ───────────────────────────────────
+   SVG overlay di dalam tree-viewport.
+   Ukuran sama dengan viewport supaya koordinat node
+   dan koordinat SVG berada di sistem yang sama.
+   Pointer-events: none agar tidak menghalangi drag.
+   -------------------------------------------------------- */
+#tree-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+}
+
+
+/* ── Line variants ───────────────────────────────────────
+   Garis selalu visible — JS menggambar dari center node
+   ke center node, tidak peduli node open atau close.
+   -------------------------------------------------------- */
+
+/* Default: tebal, solid */
+.tree-line {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+}
+
+/* Putus-putus */
+.tree-line--dot {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 8 5;
+}
+
+/* Tipis / bayangan */
+.tree-line--shadow {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 1;
+    stroke-linecap: round;
+    opacity: .4;
+}
+
+
+/* ── tree-node ───────────────────────────────────────────
+   Card standar dengan header (toggle) dan content.
+   TIDAK ada transition:transform — JS ubah left/top.
+   TIDAK ada transform di :hover — konflik dengan drag.
+   -------------------------------------------------------- */
+.tree-node {
+    position: absolute;
+    width: 220px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    user-select: none;
+    cursor: grab;
+    transition: box-shadow .15s ease, border-color .15s ease;
+}
+
+.tree-node:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+
+.tree-node.dragging {
+    cursor: grabbing;
+    border-color: var(--primary);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, .14);
+    transition: none;
+}
+
+/* Header — klik untuk toggle content */
+.tree-node__header {
+    padding: .75rem 1rem;
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    border-bottom: 1px solid var(--border);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+}
+
+/* Chevron indicator buka/tutup */
+.tree-node__header::after {
+    content: '▾';
+    font-size: .75rem;
+    color: var(--text-meta);
+    transition: transform .2s ease;
+    flex-shrink: 0;
+}
+
+.tree-node.is-collapsed .tree-node__header::after {
+    transform: rotate(-90deg);
+}
+
+/* Content — di-hide saat collapse */
+.tree-node__content {
+    padding: .75rem 1rem;
+    font-size: var(--text-sm);
+    color: var(--text-meta);
+    line-height: var(--leading-relaxed);
+}
+
+/* Saat collapse, content hidden TAPI garis tetap dihitung
+   dari center node (JS gunakan node.offsetHeight yang sudah collapse) */
+.tree-node.is-collapsed .tree-node__content {
+    display: none;
+}
+
+/* Rounded bottom hanya saat collapsed (tidak ada content) */
+.tree-node.is-collapsed .tree-node__header {
+    border-bottom: none;
+    border-radius: var(--radius-md);
+}
+
+
+/* ── tree-node--circle ───────────────────────────────────
+   Node bulat, hanya berisi gambar.
+   Tidak ada header/content, tidak bisa expand.
+   -------------------------------------------------------- */
+.tree-node--circle {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    cursor: grab;
+    user-select: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.tree-node--circle:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+
+.tree-node--circle.dragging {
+    cursor: grabbing;
+    transition: none;
+}
+
+.tree-node--circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;       /* drag pada wrapper, bukan img */
+}
+
+
+/* ── tree-node--leaf ─────────────────────────────────────
+   Node persegi panjang, hanya teks, tidak bisa expand.
+   Lebih compact dari tree-node biasa.
+   -------------------------------------------------------- */
+.tree-node--leaf {
+    position: absolute;
+    padding: .5rem 1rem;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--text-body);
+    white-space: nowrap;
+    cursor: grab;
+    user-select: none;
+    box-shadow: var(--shadow-sm);
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.tree-node--leaf:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+
+.tree-node--leaf.dragging {
+    cursor: grabbing;
+    transition: none;
+}
+
+
+/* ── Scrollbar tree-viewport (via parent) ────────────────
+   Scrollbar yang muncul di tree-container karena
+   tree-viewport lebih besar dari container.
+   -------------------------------------------------------- */
 .tree-container::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
 }
 
 .tree-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
+    background: transparent;
 }
 
 .tree-container::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 10px;
+    background: var(--border);
+    border-radius: 99px;
 }
 
 .tree-container::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: var(--text-meta);
+}
+
+.tree-container::-webkit-scrollbar-corner {
+    background: transparent;
 }

@@ -1,0 +1,136 @@
+/* ================= HEADER CV ================= */
+.cv-header {
+	display: flex;
+	gap: var(--space-lg);
+	align-items: center;
+}
+
+.cv-avatar {
+    width: 96px;
+	height: 96px;   
+	flex-shrink: 0;
+}
+
+.cv-info {
+	flex: 1;
+	min-width: 0;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+	.cv-header {
+		flex-direction: column;
+		align-items: flex-start;
+		text-align: left;
+	}
+
+	.cv-avatar {
+		width: 96px;
+		height: 96px;
+	}
+}
+
+/* =========================================================
+   PRINT (A4 CV)
+   ========================================================= */
+@media print {
+
+    @page {
+        size: A4;
+        margin: 16mm;
+    }
+
+    body {
+        background: #fff;
+        color: #000;
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+
+    .navbar {
+        display: none;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+	/* Justify text khusus untuk konten CV */
+	.cv-content p {
+		text-align: justify;
+		text-justify: inter-word;
+		hyphens: auto;
+	}
+
+    .page-stack {
+        gap: 1rem;
+    }
+
+    /* Remove card styling */
+    .card,
+    .project-item {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin-bottom: 1rem;
+        page-break-inside: avoid;
+    }
+
+    .card-group {
+        display: block;
+    }
+
+    /* Typography adjustment */
+    h1 {
+        font-size: 18pt;
+    }
+
+    h2 {
+        font-size: 14pt;
+    }
+
+    h3 {
+        font-size: 12pt;
+    }
+
+    .text-meta {
+        font-size: 10pt;
+        color: #444;
+    }
+
+    p {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Tags simplified */
+    .tag {
+        border: 1px solid #ccc;
+        background: none;
+        padding: 2px 4px;
+        font-size: 10pt;
+    }
+
+    /* Buttons hidden */
+    .button {
+        display: none;
+    }
+
+    /* Links visible as text */
+    a {
+        color: #000;
+        text-decoration: none;
+    }
+
+    /* a::after {
+        content: " (" attr(href) ")";
+        font-size: 10pt;
+        color: #555;
+    } */
+
+    .cv-avatar {
+        box-shadow: none;
+        transform: none;
+    }
+
+}

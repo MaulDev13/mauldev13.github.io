@@ -1,8 +1,12 @@
 /* =========================================================
-   TYPOGRAPHY — Headings, Paragraphs, Meta
+   TYPOGRAPHY (semantic only)
    ========================================================= */
-
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	color: var(--text-title);
 	font-weight: var(--font-semibold);
 	line-height: var(--leading-tight);
@@ -11,9 +15,10 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 { font-size: var(--text-2xl); }
 h2 { font-size: var(--text-xl); }
-h3 { font-size: var(--text-lg); }
-h4 { font-size: var(--text-md); }
-h5, h6 {
+h3 { font-size: var(--text-lg); font-weight: var(--font-semibold); }
+h4 { font-size: var(--text-md); font-weight: var(--font-semibold); }
+h5,
+h6 {
 	font-size: var(--text-sm);
 	color: var(--text-meta);
 }

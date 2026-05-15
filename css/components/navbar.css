@@ -1,7 +1,6 @@
 /* =========================================================
-   NAV — Navbar
+   NAV
    ========================================================= */
-
 .navbar {
 	position: sticky;
 	top: 0;
@@ -22,7 +21,13 @@
 	color: var(--text-meta);
 	font-size: var(--text-sm);
 	cursor: pointer;
-	transition: color .2s;
 }
-.nav-btn:hover    { color: var(--text-title); }
-.nav-btn.is-active { color: var(--primary); font-weight: var(--font-semibold); }
+
+.nav-btn:hover {
+	color: var(--text-title);
+}
+
+.nav-btn.is-active {
+	color: var(--primary);
+	font-weight: 600;
+}

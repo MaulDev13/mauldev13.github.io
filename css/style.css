@@ -1,21 +1,19 @@
-/* =========================================================
-   MAIN — Entry Point
-   Import order matters: tokens first, then base, then
-   components, then page-specific, then overrides (print).
-   ========================================================= */
+@import "./base/tokens.css";
+@import "./base/base.css";
+@import "./base/typography.css";
 
-@import "tokens.css";
-@import "base.css";
-@import "typography.css";
+@import "./base/utilities.css";
 
-@import "nav.css";
-@import "card.css";
-@import "table.css";
+@import "./components/navbar.css";
+@import "./components/footer.css";
+@import "./components/button.css";
+@import "./components/link.css";
+@import "./components/tags.css";
+@import "./components/card.css";
+@import "./components/project.css";
+@import "./components/table.css";
 
-@import "button.css";
-@import "tags.css";
+@import "./components/avatar.css";
 
-@import "cv.css";
-@import "print.css";
-
-@import "skill-tree.css";
+@import "./pages/cv.css";
+@import "./pages/skill-tree.css";

@@ -1,0 +1,33 @@
+/* =========================================================
+   NAV
+   ========================================================= */
+.navbar {
+	position: sticky;
+	top: 0;
+	padding: var(--space-md);
+	background: rgba(246, 248, 251, .85);
+	backdrop-filter: blur(8px);
+}
+
+.nav-group {
+	display: flex;
+	justify-content: center;
+	gap: var(--space-lg);
+}
+
+.nav-btn {
+	background: none;
+	border: none;
+	color: var(--text-meta);
+	font-size: var(--text-sm);
+	cursor: pointer;
+}
+
+.nav-btn:hover {
+	color: var(--text-title);
+}
+
+.nav-btn.is-active {
+	color: var(--primary);
+	font-weight: 600;
+}

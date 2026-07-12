@@ -12,9 +12,10 @@
 .tree-container {
     position: relative;
     width: 100%;
-	max-width: auto; /* agar tidak ikut stretch page 0px*/
+	max-width: 100%; /* agar tidak ikut stretch page 0px*/
     height: calc(100dvh - 180px);
-    min-height: 400px;
+    min-height: auto;
+    box-sizing: border-box;
 
     overflow: auto !important;               /* viewport di dalam ini yang scroll */
     border-radius: var(--radius-md);

@@ -62,6 +62,25 @@
 
             </div>
 
+            <!-- GENERAL PARSE -->
+            <div class="card card--sm project-item">
+
+                <button
+                    class="button button--primary"
+                    hx-get="/pages/contents/parse-content.html"
+                    hx-target="#parse-content"
+                    hx-trigger="click once"
+                    hx-swap="innerHTML"
+                    onclick="toggleProject(this, 'parse-content')"
+                >
+                    <span>📄 General Parsing System</span>
+                    <span class="arrow">▼</span>
+                </button>
+
+                <div id="parse-content" class="project-content hidden"></div>
+
+            </div>
+
             <!-- CHATBOT -->
             <div class="card card--sm project-item">
 

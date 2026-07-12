@@ -12,7 +12,7 @@
 .tree-container {
     position: relative;
     width: 100%;
-	max-width: 100%;
+	max-width: auto; /* agar tidak ikut stretch page 0px*/
     height: calc(100dvh - 180px);
     min-height: 400px;
 

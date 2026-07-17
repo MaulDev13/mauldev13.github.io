@@ -100,6 +100,25 @@
 
             </div>
 
+            <!-- OLLAMA -->
+            <div class="card card--sm project-item">
+
+                <button
+                    class="button button--primary"
+                    hx-get="/pages/contents/ollama-content.html"
+                    hx-target="#ollama-content"
+                    hx-trigger="click once"
+                    hx-swap="innerHTML"
+                    onclick="toggleProject(this, 'ollama-content')"
+                >
+                    <span>🦙 Local AI with Ollama</span>
+                    <span class="arrow">▼</span>
+                </button>
+
+                <div id="ollama-content" class="project-content hidden"></div>
+
+            </div>
+
             <!-- DEVOPS -->
             <div class="card card--sm project-item">
 

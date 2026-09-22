@@ -1,0 +1,175 @@
+<div class="card-group">
+
+    <!-- INTRO CARD -->
+    <div class="card">
+
+        <h1>Experience</h1>
+
+        <p>
+            A combination of professional, academic, teaching, freelance, and
+            independent development experience across software engineering,
+            system development, education, and game development.
+        </p>
+
+        <p>
+            My experience includes backend development, application and system
+            design, programming education, data processing, and independent
+            software projects developed both individually and collaboratively.
+        </p>
+
+    </div>
+
+
+    <!-- EXPERIENCE SECTION -->
+    <div class="card">
+
+        <h2>💼 Professional & Development Experience</h2>
+
+        <div class="card-group">
+
+            <!-- POS INDONESIA -->
+            <div class="card card--sm project-item">
+
+                <button
+                    class="button button--primary"
+                    hx-get="/pages/contents/experiences/posind-content.html"
+                    hx-target="#posind-content"
+                    hx-trigger="click once"
+                    hx-swap="innerHTML"
+                    onclick="toggleProject(this, 'posind-content')"
+                >
+                    <span>📮 Pos Indonesia</span>
+                    <span class="arrow">▼</span>
+                </button>
+
+                <div id="posind-content" class="project-content hidden"></div>
+
+            </div>
+
+
+            <!-- RUANGGURU -->
+            <div class="card card--sm project-item">
+
+                <button
+                    class="button button--primary"
+                    hx-get="/pages/contents/experiences/ruangguru-content.html"
+                    hx-target="#ruangguru-content"
+                    hx-trigger="click once"
+                    hx-swap="innerHTML"
+                    onclick="toggleProject(this, 'ruangguru-content')"
+                >
+                    <span>👨‍🏫 Ruangguru — Coding Teacher</span>
+                    <span class="arrow">▼</span>
+                </button>
+
+                <div id="ruangguru-content" class="project-content hidden"></div>
+
+            </div>
+
+
+            <!-- UNUHA -->
+            <div class="card card--sm project-item">
+
+                <button
+                    class="button button--primary"
+                    hx-get="/pages/contents/experiences/unuha-content.html"
+                    hx-target="#unuha-content"
+                    hx-trigger="click once"
+                    hx-swap="innerHTML"
+                    onclick="toggleProject(this, 'unuha-content')"
+                >
+                    <span>🎓 Universitas Nurul Huda — Dosen Pengganti</span>
+                    <span class="arrow">▼</span>
+                </button>
+
+                <div id="unuha-content" class="project-content hidden"></div>
+
+            </div>
+
+
+            <!-- FREELANCE -->
+            <div class="card card--sm project-item">
+
+                <button
+                    class="button button--primary"
+                    hx-get="/pages/contents/experiences/freelance-content.html"
+                    hx-target="#freelance-content"
+                    hx-trigger="click once"
+                    hx-swap="innerHTML"
+                    onclick="toggleProject(this, 'freelance-content')"
+                >
+                    <span>💻 Freelance IT Development</span>
+                    <span class="arrow">▼</span>
+                </button>
+
+                <div id="freelance-content" class="project-content hidden"></div>
+
+            </div>
+
+
+            <!-- GAME DEVELOPMENT -->
+            <div class="card card--sm project-item">
+
+                <button
+                    class="button button--primary"
+                    hx-get="/pages/contents/experiences/gamedev-content.html"
+                    hx-target="#gamedev-content"
+                    hx-trigger="click once"
+                    hx-swap="innerHTML"
+                    onclick="toggleProject(this, 'gamedev-content')"
+                >
+                    <span>🎮 Independent Game Development</span>
+                    <span class="arrow">▼</span>
+                </button>
+
+                <div id="gamedev-content" class="project-content hidden"></div>
+
+            </div>
+
+
+            <!-- EKA DURA -->
+            <div class="card card--sm project-item">
+
+                <button
+                    class="button button--primary"
+                    hx-get="/pages/contents/experiences/eka-dura-content.html"
+                    hx-target="#eka-dura-content"
+                    hx-trigger="click once"
+                    hx-swap="innerHTML"
+                    onclick="toggleProject(this, 'eka-dura-content')"
+                >
+                    <span>📊 Eka Dura Indonesia</span>
+                    <span class="arrow">▼</span>
+                </button>
+
+                <div id="eka-dura-content" class="project-content hidden"></div>
+
+            </div>
+
+
+            <!-- SUNGAI RAJA -->
+            <div class="card card--sm project-item">
+
+                <button
+                    class="button button--primary"
+                    hx-get="/pages/contents/experiences/sungai-raja-content.html"
+                    hx-target="#sungai-raja-content"
+                    hx-trigger="click once"
+                    hx-swap="innerHTML"
+                    onclick="toggleProject(this, 'sungai-raja-content')"
+                >
+                    <span>🏢 Sungai Raja Village Office</span>
+                    <span class="arrow">▼</span>
+                </button>
+
+                <div id="sungai-raja-content" class="project-content hidden"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/js/features/toggle-ui.js"></script>

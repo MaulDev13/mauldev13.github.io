@@ -24,21 +24,59 @@
             Experiences
         </button>
 
-        <button class="nav-btn"
+        <!-- <button class="nav-btn"
             hx-get="/pages/character-build.html"
             hx-target="#content"
             hx-swap="innerHTML"
             hx-indicator="#loading">
             Character Build
-        </button>
+        </button> -->
 
-        <button class="nav-btn"
-            hx-get="/pages/cv.html"
-            hx-target="#content"
-            hx-swap="innerHTML"
-            hx-indicator="#loading">
-            Curriculum Vitae
-        </button>
+        <div class="nav-dropdown">
+            <button class="nav-btn nav-dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+                Curriculum Vitae <span class="nav-caret" aria-hidden="true">▾</span>
+            </button>
+
+            <div class="nav-dropdown-menu" role="menu">
+                <button class="nav-btn nav-dropdown-item" role="menuitem"
+                    hx-get="/pages/cv.html"
+                    hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">
+                    All CVs
+                </button>
+
+                <span class="nav-dropdown-sep" role="separator"></span>
+
+                <button class="nav-btn nav-dropdown-item" role="menuitem"
+                    hx-get="/pages/cv-general-styled.html"
+                    hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">
+                    General
+                </button>
+
+                <button class="nav-btn nav-dropdown-item" role="menuitem"
+                    hx-get="/pages/cv-fullstack-styled.html"
+                    hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">
+                    Full Stack
+                </button>
+
+                <button class="nav-btn nav-dropdown-item" role="menuitem"
+                    hx-get="/pages/cv-backend-styled.html"
+                    hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">
+                    Backend
+                </button>
+
+                <button class="nav-btn nav-dropdown-item" role="menuitem"
+                    hx-get="/pages/cv-gamedev-styled.html"
+                    hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">
+                    Game Dev
+                </button>
+
+                <button class="nav-btn nav-dropdown-item" role="menuitem"
+                    hx-get="/pages/cv-teaching-styled.html"
+                    hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">
+                    Teaching
+                </button>
+            </div>
+        </div>
 
         <button class="nav-btn"
             hx-get="/pages/contact.html"
@@ -46,6 +84,11 @@
             hx-swap="innerHTML"
             hx-indicator="#loading">
             Contact
+        </button>
+
+        <button id="theme-toggle" class="nav-btn theme-toggle" type="button"
+            aria-label="Toggle color theme" title="Toggle light / dark theme">
+            <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
         </button>
     </div>
 </nav>

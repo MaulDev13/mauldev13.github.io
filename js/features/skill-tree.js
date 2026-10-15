@@ -162,33 +162,61 @@ function initZoom() {
         if (!e.ctrlKey) return;
         e.preventDefault();
 
-        zoomLevel = Math.max(
+        const next = Math.max(
             MIN_ZOOM,
             Math.min(MAX_ZOOM, zoomLevel - e.deltaY * ZOOM_SPEED)
         );
 
-        applyZoom();
+        // Zoom di titik kursor supaya terasa natural.
+        const rect = container.getBoundingClientRect();
+        applyZoom(next, e.clientX - rect.left, e.clientY - rect.top);
 
     }, { passive: false });
 }
 
-function applyZoom() {
+// applyZoom(nextZoom?, anchorX?, anchorY?)
+//   - anchorX/Y: titik (dalam koordinat container, px) yang posisinya
+//     dipertahankan saat zoom. Default: tengah container.
+//   Viewport memakai transform-origin: 0 0, jadi:
+//     screen = point * zoom - scroll   →   point = (screen + scroll) / zoom
+function applyZoom(nextZoom = zoomLevel, anchorX, anchorY) {
 
-    const viewport = document.querySelector(".tree-viewport");
+    const container = document.querySelector(".tree-container");
+    const viewport  = document.querySelector(".tree-viewport");
     if (!viewport) return;
 
-    viewport.style.transform = `scale(${zoomLevel})`;
+    const prevZoom = zoomLevel;
+    const newZoom  = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, nextZoom));
+
+    if (container) {
+        const ax = (anchorX === undefined) ? container.clientWidth  / 2 : anchorX;
+        const ay = (anchorY === undefined) ? container.clientHeight / 2 : anchorY;
+
+        // Titik viewport yang berada di bawah anchor sebelum zoom.
+        const pointX = (container.scrollLeft + ax) / prevZoom;
+        const pointY = (container.scrollTop  + ay) / prevZoom;
+
+        zoomLevel = newZoom;
+        viewport.style.transform = `scale(${newZoom})`;
+
+        // Setel ulang scroll supaya titik yang sama tetap di bawah anchor.
+        container.scrollLeft = pointX * newZoom - ax;
+        container.scrollTop  = pointY * newZoom - ay;
+    } else {
+        zoomLevel = newZoom;
+        viewport.style.transform = `scale(${newZoom})`;
+    }
 
     const label = document.getElementById("zoom-level");
-    if (label) label.textContent = Math.round(zoomLevel * 100) + "%";
+    if (label) label.textContent = Math.round(newZoom * 100) + "%";
 
     drawLines();
 }
 
 // Public API
 window.setZoom = function (value) {
-    zoomLevel = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, value));
-    applyZoom();
+    // Tombol/keyboard: zoom di tengah container.
+    applyZoom(value);
 };
 
 // =========================================================
@@ -226,16 +254,17 @@ function centerCamera(nodeId) {
             const nw    = node.offsetWidth;
             const nh    = node.offsetHeight;
 
-            // Scroll supaya center node = center container
-            targetLeft = nodeX + nw / 2 - container.clientWidth  / 2;
-            targetTop  = nodeY + nh / 2 - container.clientHeight / 2;
+            // Viewport di-scale dari origin 0 0, jadi koordinat node
+            // dikali zoomLevel. Scroll supaya center node = center container.
+            targetLeft = (nodeX + nw / 2) * zoomLevel - container.clientWidth  / 2;
+            targetTop  = (nodeY + nh / 2) * zoomLevel - container.clientHeight / 2;
         }
     }
 
-    // Fallback: tengah viewport
+    // Fallback: tengah viewport (ikut skala)
     if (targetLeft === undefined) {
-        targetLeft = (VIEWPORT_W - container.clientWidth)  / 2;
-        targetTop  = (VIEWPORT_H - container.clientHeight) / 2;
+        targetLeft = (VIEWPORT_W / 2) * zoomLevel - container.clientWidth  / 2;
+        targetTop  = (VIEWPORT_H / 2) * zoomLevel - container.clientHeight / 2;
     }
 
     container.scrollTo({
@@ -257,12 +286,119 @@ function placeNodes() {
 
     document.querySelectorAll(".tree-node, .tree-node--circle, .tree-node--leaf").forEach(node => {
 
+        // Simpan posisi awal (relatif) sekali saja, untuk fitur Reset.
+        if (node.dataset.ox === undefined) {
+            node.dataset.ox = node.dataset.x || "0";
+            node.dataset.oy = node.dataset.y || "0";
+        }
+
         const relX = parseFloat(node.dataset.x) || 0;
         const relY = parseFloat(node.dataset.y) || 0;
 
         node.style.left = (midX + relX) + "px";
         node.style.top  = (midY + relY) + "px";
     });
+}
+
+// =========================================================
+// Bounding box semua node (dalam viewport space)
+// =========================================================
+
+function getNodesBounds() {
+
+    const nodes = document.querySelectorAll(".tree-node, .tree-node--circle, .tree-node--leaf");
+    if (nodes.length === 0) return null;
+
+    let minX = Infinity, minY = Infinity;
+    let maxX = -Infinity, maxY = -Infinity;
+
+    nodes.forEach(node => {
+        const left   = parseFloat(node.style.left) || 0;
+        const top    = parseFloat(node.style.top)  || 0;
+        const right  = left + node.offsetWidth;
+        const bottom = top  + node.offsetHeight;
+
+        if (left   < minX) minX = left;
+        if (top    < minY) minY = top;
+        if (right  > maxX) maxX = right;
+        if (bottom > maxY) maxY = bottom;
+    });
+
+    return {
+        minX, minY, maxX, maxY,
+        centerX: (minX + maxX) / 2,
+        centerY: (minY + maxY) / 2,
+    };
+}
+
+// =========================================================
+// Recenter — scroll supaya center bounding box = center container
+// =========================================================
+
+function centerOnAllNodes(smooth = true) {
+
+    const container = document.querySelector(".tree-container");
+    if (!container) return;
+
+    // Container mungkin belum punya ukuran (panel baru saja di-unhide /
+    // HTMX baru swap). Tunggu sampai ter-layout, lalu ulangi.
+    if (container.clientWidth === 0 || container.clientHeight === 0) {
+        requestAnimationFrame(() => centerOnAllNodes(smooth));
+        return;
+    }
+
+    const bounds = getNodesBounds();
+    if (!bounds) {
+        // Fallback: tengah viewport
+        container.scrollTo({
+            left: (VIEWPORT_W - container.clientWidth)  / 2,
+            top:  (VIEWPORT_H - container.clientHeight) / 2,
+            behavior: smooth ? "smooth" : "auto",
+        });
+        return;
+    }
+
+    // Node diposisikan dalam ruang viewport; saat di-zoom, viewport
+    // di-scale, jadi koordinat scroll ikut dikali zoomLevel.
+    const targetLeft = bounds.centerX * zoomLevel - container.clientWidth  / 2;
+    const targetTop  = bounds.centerY * zoomLevel - container.clientHeight / 2;
+
+    container.scrollTo({
+        left: Math.max(0, targetLeft),
+        top:  Math.max(0, targetTop),
+        behavior: smooth ? "smooth" : "auto",
+    });
+}
+
+// =========================================================
+// Reset layout — kembalikan semua node ke posisi awal
+// =========================================================
+
+function resetLayout() {
+
+    const midX = VIEWPORT_W / 2;
+    const midY = VIEWPORT_H / 2;
+
+    document.querySelectorAll(".tree-node, .tree-node--circle, .tree-node--leaf").forEach(node => {
+
+        const ox = parseFloat(node.dataset.ox) || 0;
+        const oy = parseFloat(node.dataset.oy) || 0;
+
+        // Kembalikan data-x/y ke nilai awal dan terapkan posisinya.
+        node.dataset.x = String(ox);
+        node.dataset.y = String(oy);
+
+        node.style.left = (midX + ox) + "px";
+        node.style.top  = (midY + oy) + "px";
+
+        // Buka kembali node yang mungkin ter-collapse.
+        node.classList.remove("is-collapsed");
+        const content = node.querySelector(".tree-node__content, .tree-content");
+        if (content) content.classList.remove("hidden");
+    });
+
+    drawLines();
+    centerOnAllNodes(true);
 }
 
 // =========================================================
@@ -423,10 +559,15 @@ function initSkillTree(anchorNodeId = null) {
         applyZoom();
         drawLines();
 
-        // Scroll ke anchor setelah layout selesai
-        if (anchorNodeId) {
-            setTimeout(() => centerCamera(anchorNodeId), 100);
-        }
+        // Setelah layout selesai, pusatkan kamera ke seluruh node
+        // (bukan ke node tunggal yang mungkin tidak ada di map ini).
+        setTimeout(() => {
+            if (anchorNodeId && document.getElementById(anchorNodeId)) {
+                centerCamera(anchorNodeId);
+            } else {
+                centerOnAllNodes(false);
+            }
+        }, 60);
     });
 }
 
@@ -437,6 +578,8 @@ function initSkillTree(anchorNodeId = null) {
 window.initSkillTree        = initSkillTree;
 window.drawLines            = drawLines;
 window.setZoom              = window.setZoom; // sudah di-set di atas
+window.centerOnAllNodes     = centerOnAllNodes;
+window.resetLayout          = resetLayout;
 
 window.focusOnNode = function (nodeId) {
 
@@ -456,7 +599,7 @@ window.focusOnNode = function (nodeId) {
 };
 
 window.resetCamera = function () {
-    centerCamera(null);
+    centerOnAllNodes(true);
 };
 
 // =========================================================

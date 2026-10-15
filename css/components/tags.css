@@ -52,7 +52,7 @@
 /* HOVER */
 .tag:hover {
 	background: var(--primary-soft);
-	border-color: rgba(20, 184, 166, 0.25);
+	border-color: var(--primary-ring);
 
 	color: var(--primary-hover);
 
@@ -74,8 +74,8 @@
 
 /* KEYWORD STYLE */
 .tag.is-highlight {
-	background: rgba(20, 184, 166, 0.12);
-	border-color: rgba(20, 184, 166, 0.18);
+	background: var(--primary-highlight);
+	border-color: var(--primary-ring);
 	color: var(--primary-active);
 }
 

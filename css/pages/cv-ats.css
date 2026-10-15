@@ -1,0 +1,236 @@
+/* =========================================================
+   CV — ATS VERSION
+   Single column, plain, machine-readable layout.
+   =========================================================
+   NOTE: Kept intentionally minimal and semantic so Applicant
+   Tracking Systems can parse headings, dates and bullets.
+   ========================================================= */
+
+.cv-ats {
+    max-width: var(--container-md);
+    margin: 0 auto;
+    color: var(--text-body);
+    line-height: var(--leading-normal);
+    font-family: var(--font-sans);
+}
+
+/* ---------- Header ---------- */
+.cv-ats-header {
+    border-bottom: 2px solid var(--border);
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.cv-ats-header h1 {
+    margin: 0 0 var(--space-2xs);
+    color: var(--text-title);
+}
+
+.cv-ats-title {
+    margin: 0 0 var(--space-xs);
+    font-weight: var(--font-semibold);
+    color: var(--text-body);
+}
+
+.cv-ats-contact {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text-meta);
+    word-break: break-word;
+}
+
+/* ---------- Sections ---------- */
+.cv-ats-section {
+    margin-bottom: var(--space-lg);
+}
+
+.cv-ats-section > h2 {
+    margin: 0 0 var(--space-sm);
+    padding-bottom: var(--space-2xs);
+    border-bottom: 1px solid var(--border);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    font-size: var(--text-lg);
+    color: var(--text-title);
+}
+
+/* ---------- Entries ---------- */
+.cv-ats-entry {
+    margin-bottom: var(--space-md);
+}
+
+.cv-ats-entry-head {
+    margin: 0 0 var(--space-2xs);
+    font-size: var(--text-md);
+}
+
+.cv-ats-role {
+    font-weight: var(--font-semibold);
+    color: var(--text-title);
+}
+
+.cv-ats-dates {
+    float: right;
+    font-size: var(--text-sm);
+    color: var(--text-meta);
+    font-weight: var(--font-regular);
+}
+
+.cv-ats-entry ul {
+    margin: var(--space-2xs) 0 0;
+    padding-left: 1.25rem;
+}
+
+.cv-ats-entry li {
+    margin-bottom: var(--space-2xs);
+}
+
+.cv-ats-tech {
+    margin: var(--space-xs) 0 0;
+    font-size: var(--text-sm);
+    color: var(--text-meta);
+}
+
+.cv-ats-link {
+    margin: var(--space-2xs) 0 0;
+    font-size: var(--text-sm);
+    color: var(--text-body);
+    word-break: break-all;
+}
+
+/* ---------- Skills / plain lists ---------- */
+.cv-ats-skills {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.cv-ats-skills li {
+    margin-bottom: var(--space-xs);
+}
+
+/* ---------- Actions ---------- */
+.cv-ats-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+}
+
+/* =========================================================
+   CV TYPE BANNER (shared by styled + ATS versions)
+   ========================================================= */
+.cv-type-banner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+}
+
+.cv-type-banner--ats {
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+}
+
+.cv-type-banner--styled {
+    background: var(--primary-soft);
+    border: 1px solid var(--border-focus);
+}
+
+.cv-type-badge {
+    display: inline-block;
+    padding: var(--space-2xs) var(--space-sm);
+    border-radius: var(--radius-full);
+    background: var(--primary);
+    color: var(--text-invert);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.cv-type-banner--ats .cv-type-badge {
+    background: var(--text-meta);
+}
+
+/* =========================================================
+   PRINT (A4, clean black-on-white for ATS/PDF)
+   ========================================================= */
+@media print {
+
+    @page {
+        size: A4;
+        margin: 16mm;
+    }
+
+    body {
+        background: #fff;
+        color: #000;
+        font-size: 11pt;
+        line-height: 1.4;
+    }
+
+    .navbar,
+    .cv-type-banner,
+    .cv-ats-actions,
+    .cv-switcher,
+    .cv-switcher-current,
+    .cv-type-badge,
+    button.button {
+        display: none !important;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .cv-ats {
+        max-width: 100%;
+    }
+
+    /* Keep dates on the same line as the role, readable in Word/PDF. */
+    .cv-ats-dates {
+        float: none;
+        color: #333;
+    }
+
+    .cv-ats-entry-head {
+        display: block;
+    }
+
+    .cv-ats-section {
+        page-break-inside: avoid;
+    }
+
+    .cv-ats-entry {
+        page-break-inside: avoid;
+    }
+
+    .cv-ats-header h1 {
+        font-size: 18pt;
+        color: #000;
+    }
+
+    .cv-ats-section > h2 {
+        font-size: 12pt;
+        color: #000;
+    }
+
+    .cv-ats-role {
+        color: #000;
+    }
+
+    .cv-ats-dates,
+    .cv-ats-contact,
+    .cv-ats-tech {
+        color: #333;
+    }
+
+    a {
+        color: #000;
+        text-decoration: none;
+    }
+}

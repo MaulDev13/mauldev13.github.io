@@ -30,7 +30,7 @@ p {
 
 .text-meta {
 	font-size: var(--text-xs);
-	font-weight: var(--font-small);
+	font-weight: var(--font-regular);
 	color: var(--text-meta);
 	line-height: var(--leading-normal);
 }

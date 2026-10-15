@@ -9,6 +9,19 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
 
     <meta name="api-base" content="https://simple-go-production.up.railway.app">
+
+    <!-- Apply saved theme before paint to avoid a flash of the wrong theme -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem("theme");
+                if (t === "dark" || t === "light") {
+                    document.documentElement.setAttribute("data-theme", t);
+                }
+            } catch (e) { /* ignore */ }
+        })();
+    </script>
+
     <link rel="stylesheet" href="css/style.css">
 
     <!-- HTMX -->
@@ -51,6 +64,7 @@
 
     <!-- SCRIPTS -->
     <script src="js/core/config.js"></script>
+    <script src="js/core/theme.js"></script>
     <script src="js/core/router.js"></script>
     <script src="js/core/loading.js"></script>
     <script src="js/core/error.js"></script>

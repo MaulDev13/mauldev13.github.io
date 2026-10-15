@@ -1,0 +1,109 @@
+/* =========================================================
+   CV HUB — selector landing + shared CV switcher
+   ========================================================= */
+
+.cv-hub {
+    max-width: var(--container-md);
+    margin: 0 auto;
+}
+
+/* ---------- Hub card heads ---------- */
+.cv-hub-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xs);
+}
+
+.cv-hub-card-head h2,
+.cv-hub-card-head h3 {
+    margin: 0;
+}
+
+/* ---------- Featured (General) ---------- */
+.cv-hub-featured {
+    border-color: var(--border-focus);
+    background: var(--primary-soft);
+}
+
+/* ---------- Role grid ---------- */
+.cv-hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-md);
+}
+
+.cv-hub-role {
+    display: flex;
+    flex-direction: column;
+}
+
+.cv-hub-role p {
+    flex: 1;
+}
+
+/* ---------- Actions row (Styled / ATS) ---------- */
+.cv-hub-actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+}
+
+/* ---------- Badge variants ---------- */
+.cv-type-badge--general {
+    background: var(--primary);
+}
+
+.cv-type-badge--role {
+    background: var(--text-meta);
+}
+
+/* =========================================================
+   CV SWITCHER — top bar on each CV variant page
+   ========================================================= */
+.cv-switcher {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    margin-bottom: var(--space-sm);
+}
+
+.cv-switcher-title {
+    font-weight: var(--font-semibold);
+    color: var(--text-title);
+}
+
+.cv-switcher-variants {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-left: auto;
+}
+
+/* The currently active variant — shown as a static chip, not a button */
+.cv-switcher-current {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    background: var(--primary);
+    color: var(--text-invert);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    letter-spacing: .03em;
+}
+
+/* =========================================================
+   PRINT — hide hub-only chrome so printed CVs stay clean
+   ========================================================= */
+@media print {
+    .cv-switcher {
+        display: none !important;
+    }
+}

@@ -16,4 +16,6 @@
 @import "./components/avatar.css";
 
 @import "./pages/cv.css";
+@import "./pages/cv-ats.css";
+@import "./pages/cv-hub.css";
 @import "./pages/skill-tree.css";

@@ -5,7 +5,8 @@
 	position: sticky;
 	top: 0;
 	padding: var(--space-md);
-	background: rgba(246, 248, 251, .85);
+	background: var(--surface-translucent);
+	border: 1px solid var(--border);
 	backdrop-filter: blur(8px);
 }
 
@@ -30,4 +31,110 @@
 .nav-btn.is-active {
 	color: var(--primary);
 	font-weight: 600;
+}
+
+/* =========================================================
+   NAV DROPDOWN (grouped CV links)
+   ========================================================= */
+.nav-dropdown {
+	position: relative;
+	display: inline-flex;
+}
+
+.nav-dropdown-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2xs);
+}
+
+.nav-caret {
+	font-size: var(--text-xs);
+	transition: transform var(--transition-fast);
+}
+
+.nav-dropdown-menu {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%) translateY(var(--space-xs));
+	min-width: 160px;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xs);
+	padding: var(--space-sm);
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-md);
+
+	/* hidden by default */
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition:
+		opacity var(--transition-fast),
+		visibility var(--transition-fast);
+	z-index: 20;
+}
+
+/* Open on hover or when a child has keyboard focus */
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+}
+
+.nav-dropdown:hover .nav-caret,
+.nav-dropdown:focus-within .nav-caret {
+	transform: rotate(180deg);
+}
+
+.nav-dropdown-item {
+	text-align: center;
+	padding: var(--space-2xs) var(--space-xs);
+	border-radius: var(--radius-sm);
+	white-space: nowrap;
+}
+
+.nav-dropdown-item:hover {
+	background: var(--surface-hover);
+}
+
+.nav-dropdown-sep {
+	display: block;
+	height: 1px;
+	margin: var(--space-2xs) 0;
+	background: var(--border);
+}
+
+/* =========================================================
+   THEME TOGGLE
+   ========================================================= */
+.theme-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2rem;
+	height: 2rem;
+	padding: 0;
+	border-radius: var(--radius-full);
+	line-height: 1;
+	transition:
+		background-color var(--transition-fast),
+		transform var(--transition-fast);
+}
+
+.theme-toggle:hover {
+	background: var(--surface-hover);
+	transform: translateY(-1px);
+}
+
+.theme-toggle:focus-visible {
+	outline: 2px solid var(--border-focus);
+	outline-offset: 2px;
+}
+
+.theme-toggle-icon {
+	font-size: var(--text-md);
 }

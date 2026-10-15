@@ -32,6 +32,11 @@
 
         if (!button) return;
 
+        // Some .nav-btn elements aren't page links (theme toggle, dropdown
+        // opener) — they shouldn't take the active-page highlight.
+        if (button.id === "theme-toggle") return;
+        if (button.classList.contains("nav-dropdown-toggle")) return;
+
         setActive(button);
     });
 

@@ -13,21 +13,20 @@
     position: relative;
     width: 100%;
 	max-width: 100%; /* agar tidak ikut stretch page 0px*/
-    height: calc(100dvh - 180px);
+    /* Map lebih kecil: ~55% tinggi viewport, dibatasi min/max agar stabil. */
+    height: clamp(360px, 55dvh, 620px);
     min-height: auto;
     box-sizing: border-box;
 
     overflow: auto !important;               /* viewport di dalam ini yang scroll */
     border-radius: var(--radius-md);
     border: 1px solid var(--border);
-    background-color: #f8fafc;
+    background-color: var(--surface-soft);
     background-image:
-        linear-gradient(rgba(0, 0, 0, .03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 0, 0, .03) 1px, transparent 1px);
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
     background-size: 32px 32px;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, .8),
-        0 4px 24px rgba(0, 0, 0, .05);
+    box-shadow: var(--shadow-md);
 }
 
 
@@ -45,7 +44,7 @@
     gap: var(--space-xs);
 
     padding: .25rem .375rem;
-    background: rgba(255, 255, 255, .9);
+    background: var(--surface-translucent);
     backdrop-filter: blur(8px);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
@@ -72,6 +71,19 @@
     height: 4000px;
     overflow: visible;          /* node boleh keluar dari batas */
     will-change: transform;     /* hint GPU untuk zoom JS jika dipakai */
+    transform-origin: 0 0;      /* skala konsisten dari sudut kiri-atas */
+}
+
+/* Animasi halus hanya saat zoom via tombol/keyboard.
+   Kelas .is-zooming ditamb/dihapus oleh controller agar drag tetap instan. */
+.tree-viewport.is-zooming {
+    transition: transform var(--transition-normal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tree-viewport.is-zooming {
+        transition: none;
+    }
 }
 
 
@@ -155,7 +167,7 @@
 
 /* Header — klik untuk toggle content */
 .tree-node__header {
-    padding: .75rem 1rem;
+    padding: var(--space-sm) var(--space-md);
     font-size: var(--text-sm);
     font-weight: var(--font-semibold);
     border-bottom: 1px solid var(--border);
@@ -182,7 +194,7 @@
 
 /* Content — di-hide saat collapse */
 .tree-node__content {
-    padding: .75rem 1rem;
+    padding: var(--space-sm) var(--space-md);
     font-size: var(--text-sm);
     color: var(--text-meta);
     line-height: var(--leading-relaxed);
@@ -243,7 +255,7 @@
    -------------------------------------------------------- */
 .tree-node--leaf {
     position: absolute;
-    padding: .5rem 1rem;
+    padding: var(--space-xs) var(--space-md);
     background: var(--surface-soft);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
@@ -299,7 +311,7 @@
 }
 
 .tree-controls button:hover {
-    background: var(--primary-light, #e0f2fe);
+    background: var(--primary-soft);
     transform: scale(0.95);
 }
 

@@ -1,24 +1,25 @@
-<div class="page-stack cv-ats" data-cv-type="ats" data-cv-role="backend">
+<div class="page-stack cv-ats" data-cv-type="ats" data-cv-role="general">
 
+    <!-- SWITCHER -->
     <div class="cv-switcher">
         <button class="button button--ghost button--sm"
             hx-get="/pages/cv.html" hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">← All CVs</button>
-        <span class="cv-switcher-title">Backend CV</span>
+        <span class="cv-switcher-title">General CV</span>
         <span class="cv-switcher-variants">
             <button class="button button--secondary button--sm"
-                hx-get="/pages/cv-backend-styled.html" hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">Styled</button>
+                hx-get="/pages/contents/cv/cv-general-styled.html" hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">Styled</button>
             <span class="cv-switcher-current">ATS</span>
         </span>
     </div>
 
     <div class="cv-type-banner cv-type-banner--ats">
-        <span class="cv-type-badge">ATS · Backend</span>
+        <span class="cv-type-badge">ATS · General</span>
         <span class="text-meta">Plain, single-column version optimized for Applicant Tracking Systems.</span>
     </div>
 
     <header class="cv-ats-header">
         <h1>Ahmad Maulana</h1>
-        <p class="cv-ats-title">Backend Developer</p>
+        <p class="cv-ats-title">Software Developer</p>
         <p class="cv-ats-contact">
             Email: amadmaul13@gmail.com | GitHub: github.com/MaulDev13 |
             LinkedIn: linkedin.com/in/ahmad-maulana1397 | Portfolio: mauldev13.github.io
@@ -28,39 +29,51 @@
     <section class="cv-ats-section">
         <h2>Professional Summary</h2>
         <p>
-            Backend developer specialized in API development, system architecture, and scalable production
-            services. Experienced building and maintaining a nationwide system serving thousands of locations
-            and tens of thousands of daily requests.
+            Versatile software developer with experience across production backend systems, full-stack web
+            development, game development, and data analysis. Comfortable owning features end to end and
+            adapting quickly across technologies.
         </p>
     </section>
 
     <section class="cv-ats-section">
         <h2>Skills</h2>
         <ul class="cv-ats-skills">
-            <li><strong>Languages:</strong> JavaScript (Node.js), SQL, VBA</li>
-            <li><strong>Backend:</strong> Express, REST API design, system architecture, scalability</li>
+            <li><strong>Languages:</strong> JavaScript (Node.js), C#, SQL, VBA</li>
+            <li><strong>Backend:</strong> Express, REST API design, system architecture</li>
+            <li><strong>Frontend:</strong> HTML, CSS, JavaScript</li>
             <li><strong>Databases:</strong> PostgreSQL, Elasticsearch</li>
+            <li><strong>Game Dev:</strong> Unity, C#, Blender</li>
             <li><strong>Cloud &amp; AI:</strong> Google Cloud, Gemini AI</li>
-            <li><strong>Tools:</strong> Git, UML, ERD, Flowchart</li>
+            <li><strong>Tools:</strong> Git, UML, ERD, Flowchart, Photoshop</li>
         </ul>
     </section>
 
     <section class="cv-ats-section">
         <h2>Work Experience</h2>
         <div class="cv-ats-entry">
-            <p class="cv-ats-entry-head"><span class="cv-ats-role">Freelance Backend Developer</span>, Independent <span class="cv-ats-dates">2020 &ndash; Present</span></p>
-            <ul>
-                <li>Design and implement backend logic and data models; system design (UML, ERD), scripting, application logic.</li>
-                <li>Manage multiple independent projects with a focus on correctness and problem solving.</li>
-            </ul>
-        </div>
-        <div class="cv-ats-entry">
             <p class="cv-ats-entry-head"><span class="cv-ats-role">Junior Analyst</span>, Pos Indonesia <span class="cv-ats-dates">Dec 2024 &ndash; Present</span></p>
-            <ul><li>Analyze operational and system data to support decisions and improve system efficiency.</li></ul>
+            <ul>
+                <li>Analyze operational and system-related data to support business decisions.</li>
+                <li>Collaborate with internal teams to improve workflows and system efficiency.</li>
+            </ul>
         </div>
         <div class="cv-ats-entry">
             <p class="cv-ats-entry-head"><span class="cv-ats-role">Management Trainee</span>, Pos Indonesia <span class="cv-ats-dates">Jul 2024 &ndash; Dec 2024</span></p>
             <ul><li>Completed a structured training program across logistics, operations, and system workflows.</li></ul>
+        </div>
+        <div class="cv-ats-entry">
+            <p class="cv-ats-entry-head"><span class="cv-ats-role">Freelance Developer</span>, Independent <span class="cv-ats-dates">2020 &ndash; Present</span></p>
+            <ul>
+                <li>Deliver custom solutions including system design (Flowchart, UML, ERD), scripting, and application logic.</li>
+                <li>Manage multiple independent projects with a focus on problem solving.</li>
+            </ul>
+        </div>
+        <div class="cv-ats-entry">
+            <p class="cv-ats-entry-head"><span class="cv-ats-role">Game Developer</span>, Independent <span class="cv-ats-dates">2019 &ndash; Present</span></p>
+            <ul>
+                <li>Design and develop games in Unity, including gameplay systems, AI logic, and UI.</li>
+                <li>Create 3D assets in Blender and interfaces in Photoshop.</li>
+            </ul>
         </div>
         <div class="cv-ats-entry">
             <p class="cv-ats-entry-head"><span class="cv-ats-role">Developer</span>, Sungai Raja Village Office <span class="cv-ats-dates">Jul 2019 &ndash; Aug 2019</span></p>
@@ -77,18 +90,23 @@
         <div class="cv-ats-entry">
             <p class="cv-ats-entry-head"><span class="cv-ats-role">AI Internal Chatbot System (DARA)</span> <span class="cv-ats-dates">Backend Developer</span></p>
             <ul>
-                <li>Developed Node.js (Express) backend services for an AI chatbot deployed across Pos Indonesia.</li>
-                <li>Designed scalable APIs over SOPs, workflows, and internal documentation.</li>
-                <li>Serves 4,500+ outlets at an estimated 13,000&ndash;45,000 requests/day.</li>
+                <li>Node.js (Express) backend for an AI chatbot deployed across Pos Indonesia.</li>
+                <li>Scalable APIs over SOPs and internal documentation; 4,500+ outlets, ~13,000&ndash;45,000 requests/day.</li>
                 <li>Integrated Google Cloud and Gemini AI for retrieval and response generation.</li>
             </ul>
             <p class="cv-ats-tech">Technologies: Node.js, Express, PostgreSQL, Elasticsearch, Google Cloud, Gemini AI</p>
         </div>
         <div class="cv-ats-entry">
             <p class="cv-ats-entry-head"><span class="cv-ats-role">Personal Portfolio &amp; Project Hub</span></p>
-            <ul><li>Public portfolio on GitHub Pages documenting backend and systems work.</li></ul>
+            <ul><li>Public portfolio on GitHub Pages with structured documentation of technical work.</li></ul>
             <p class="cv-ats-tech">Technologies: HTML, CSS, JavaScript</p>
             <p class="cv-ats-link">Link: https://mauldev13.github.io/</p>
+        </div>
+        <div class="cv-ats-entry">
+            <p class="cv-ats-entry-head"><span class="cv-ats-role">Turn-Based Strategy Game with AI (MCTS)</span></p>
+            <ul><li>2D Unity game with Monte Carlo Tree Search AI for dynamic, non-deterministic gameplay.</li></ul>
+            <p class="cv-ats-tech">Technologies: Unity, C#, AI, MCTS</p>
+            <p class="cv-ats-link">Link: https://github.com/MaulDev13/Unity_Turn-Based-Game-2D-with-MCTS</p>
         </div>
     </section>
 

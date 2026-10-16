@@ -12,10 +12,18 @@ function toggleProject(button, targetId) {
     document.querySelectorAll(".arrow")
         .forEach(el => el.textContent = "▼");
 
+    // RESET ALL OPEN STATES
+    document.querySelectorAll(".project-item.is-open")
+        .forEach(el => el.classList.remove("is-open"));
+
     // OPEN CURRENT
     if (!isOpen) {
         target.classList.remove("hidden");
         button.querySelector(".arrow").textContent = "▲";
+
+        // Mark the surrounding card as open (for CV-style header styling)
+        const item = button.closest(".project-item");
+        if (item) item.classList.add("is-open");
 
         // ✅ smooth scroll to opened content
         setTimeout(() => {

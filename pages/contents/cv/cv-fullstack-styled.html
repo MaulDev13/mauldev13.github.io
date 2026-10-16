@@ -1,19 +1,19 @@
-<div class="page-stack cv-content" data-cv-type="styled" data-cv-role="teaching">
+<div class="page-stack cv-content" data-cv-type="styled" data-cv-role="fullstack">
 
     <div class="cv-switcher">
         <button class="button button--ghost button--sm"
             hx-get="/pages/cv.html" hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">← All CVs</button>
-        <span class="cv-switcher-title">Teaching CV</span>
+        <span class="cv-switcher-title">Full Stack CV</span>
         <span class="cv-switcher-variants">
             <span class="cv-switcher-current">Styled</span>
             <button class="button button--secondary button--sm"
-                hx-get="/pages/cv-teaching-ats.html" hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">ATS</button>
+                hx-get="/pages/contents/cv/cv-fullstack-ats.html" hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">ATS</button>
         </span>
     </div>
 
     <div class="cv-type-banner cv-type-banner--styled">
-        <span class="cv-type-badge">Styled · Teaching</span>
-        <span class="text-meta">Mentoring, training, and clear technical knowledge transfer.</span>
+        <span class="cv-type-badge">Styled · Full Stack</span>
+        <span class="text-meta">Web apps end to end — APIs, data, and front-end.</span>
     </div>
 
     <div class="card">
@@ -21,28 +21,30 @@
             <img src="assets/cv_avatar.jpg" alt="Ahmad Maulana" class="avatar cv-avatar" />
             <div class="cv-info">
                 <h1>Ahmad Maulana</h1>
-                <p class="text-meta">Technical Instructor / Mentor · Programming & Systems</p>
+                <p class="text-meta">Full Stack Developer · Node.js · APIs · Web Front-End</p>
                 <p>
-                    Software developer and mentor who enjoys making technical concepts approachable. Experience
-                    guiding clients, documenting systems clearly (UML, ERD, flowcharts), and completing a
-                    structured cross-unit training program — translating real engineering practice into teaching.
+                    Full stack developer who builds web applications end to end — designing and shipping
+                    Node.js/Express APIs, modeling data, and crafting responsive front-ends with HTML, CSS,
+                    and JavaScript. Experienced carrying features from database to interface in production.
                 </p>
             </div>
         </div>
     </div>
 
     <div class="card">
-        <h1>Teaching & Technical Skills</h1>
+        <h1>Skills</h1>
         <div class="tag-row">
-            <span class="tag">Mentoring</span>
-            <span class="tag">Curriculum / Material Design</span>
-            <span class="tag">Technical Communication</span>
-            <span class="tag">Documentation</span>
-            <span class="tag">Programming (JavaScript, C#)</span>
-            <span class="tag">Web Development</span>
-            <span class="tag">Game Development (Unity)</span>
-            <span class="tag">System Design (UML / ERD)</span>
-            <span class="tag">Problem Solving</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Express</span>
+            <span class="tag">REST APIs</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Elasticsearch</span>
+            <span class="tag">Google Cloud</span>
+            <span class="tag">Git</span>
+            <span class="tag">UML / ERD</span>
         </div>
     </div>
 
@@ -50,37 +52,46 @@
         <h1>Experience</h1>
         <div class="card-group">
             <div class="card">
-                <h3>Freelance Developer & Technical Mentor</h3>
+                <h3>Freelance Full Stack Developer</h3>
                 <p class="text-meta">2020 – Present</p>
-                <p>Guide clients through requirements, explain technical trade-offs in plain language, and produce clear system documentation (flowcharts, UML, ERD) so non-technical stakeholders can follow along. Effectively one-on-one teaching throughout each project.</p>
+                <p>Build complete web solutions for clients — system design (UML, ERD, flowcharts), API and application logic, and front-end implementation — managing projects independently from requirements to delivery.</p>
             </div>
             <div class="card">
                 <h3>Pos Indonesia</h3>
-                <p class="text-meta">Management Trainee · Jul 2024 – Dec 2024</p>
-                <p>Completed a structured training program across multiple business units — experiencing firsthand how effective onboarding and knowledge transfer are designed and delivered.</p>
                 <p class="text-meta">Junior Analyst · Dec 2024 – Present</p>
-                <p>Explain data findings and system workflows to internal teams, bridging technical and operational perspectives.</p>
+                <p>Analyze operational and system data to support decisions and improve internal workflow efficiency.</p>
+                <p class="text-meta">Management Trainee · Jul 2024 – Dec 2024</p>
+                <p>Completed a structured cross-unit training program covering operations and system workflows.</p>
             </div>
             <div class="card">
-                <h3>Game & Software Development (Independent)</h3>
+                <h3>Game Development (Independent)</h3>
                 <p class="text-meta">2019 – Present</p>
-                <p>Build projects and document them publicly, turning hands-on work into teachable, well-explained examples.</p>
+                <p>Built interactive systems and UIs in Unity, strengthening end-to-end product and interface skills.</p>
             </div>
         </div>
     </div>
 
     <div class="card">
-        <h1>Projects & Teaching Material</h1>
+        <h1>Projects</h1>
         <div class="card-group">
             <div class="project-item">
+                <h3>AI Internal Chatbot System (DARA)</h3>
+                <p class="text-meta">Full Stack / Backend · Production System</p>
+                <p>Designed and built Node.js (Express) services and APIs for an AI chatbot deployed across Pos Indonesia — 4,500+ outlets, ~13K–45K requests/day — integrating PostgreSQL, Elasticsearch, Google Cloud, and Gemini AI.</p>
+                <div class="tag-row">
+                    <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">PostgreSQL</span>
+                    <span class="tag">Elasticsearch</span><span class="tag">Google Cloud</span><span class="tag">Gemini AI</span>
+                </div>
+            </div>
+            <div class="project-item">
                 <h3>Personal Portfolio & Project Hub</h3>
-                <p>A documented, public body of work used as reference and teaching material — structured explanations of systems, architecture, and game projects.</p>
-                <div class="tag-row"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+                <p>Full front-end web app on GitHub Pages with a component-based layout, routing, theming (light/dark), and dynamic content loading via HTMX.</p>
+                <div class="tag-row"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">HTMX</span></div>
                 <a href="https://mauldev13.github.io/" target="_blank" class="button button--secondary button--sm">View Project</a>
             </div>
             <div class="project-item">
                 <h3>Turn-Based Strategy Game with AI (MCTS)</h3>
-                <p>A worked example for teaching AI decision-making (Monte Carlo Tree Search) and gameplay programming in Unity.</p>
+                <p>End-to-end game build in Unity with AI logic (MCTS) and full UI implementation.</p>
                 <div class="tag-row"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">AI</span></div>
                 <a href="https://github.com/MaulDev13/Unity_Turn-Based-Game-2D-with-MCTS" target="_blank" class="button button--secondary button--sm">View Repository</a>
             </div>

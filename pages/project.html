@@ -1,160 +1,120 @@
-<div class="card-group">
+<div class="page-stack cv-content" data-cv-type="styled">
 
-    <!-- INTRO CARD -->
+    <!-- INTRO -->
     <div class="card">
-
         <h1>Projects</h1>
-
         <p>
             Selected work across backend systems, infrastructure, and game development.
             I focus on building systems that are functional, maintainable, and production-ready.
         </p>
-
         <p>
-            Many of these projects are part of my learning process—experimenting with ideas,
+            Many of these projects are part of my learning process — experimenting with ideas,
             improving skills, and understanding how systems behave in real-world scenarios.
         </p>
-
     </div>
 
-    <!-- FEATURED SECTION -->
+    <!-- FEATURED WORK -->
     <div class="card">
-
-        <h2>🚀 Featured Work</h2>
+        <h1>Featured Work</h1>
 
         <div class="card-group">
 
             <!-- PORTOFOLIO -->
-            <div class="card card--sm project-item">
-
-                <button
-                    class="button button--primary"
+            <div class="project-item">
+                <button class="cv-toggle"
                     hx-get="/pages/contents/projects/portofolio-content.html"
                     hx-target="#portofolio-content"
                     hx-trigger="click once"
                     hx-swap="innerHTML"
-                    onclick="toggleProject(this, 'portofolio-content')"
-                >
-                    <span>👤 Personal Portfolio System</span>
+                    onclick="toggleProject(this, 'portofolio-content')">
+                    <span>Personal Portfolio System</span>
                     <span class="arrow">▼</span>
                 </button>
-
                 <div id="portofolio-content" class="project-content hidden"></div>
-
             </div>
 
             <!-- LEARNING WEB -->
-            <div class="card card--sm project-item">
-
-                <button
-                    class="button button--primary"
+            <div class="project-item">
+                <button class="cv-toggle"
                     hx-get="/pages/contents/projects/learning-content.html"
                     hx-target="#learning-content"
                     hx-trigger="click once"
                     hx-swap="innerHTML"
-                    onclick="toggleProject(this, 'learning-content')"
-                >
-                    <span>📘 Web-Based Learning Platform</span>
+                    onclick="toggleProject(this, 'learning-content')">
+                    <span>Web-Based Learning Platform</span>
                     <span class="arrow">▼</span>
                 </button>
-
                 <div id="learning-content" class="project-content hidden"></div>
-
             </div>
 
             <!-- GENERAL PARSE -->
-            <div class="card card--sm project-item">
-
-                <button
-                    class="button button--primary"
+            <div class="project-item">
+                <button class="cv-toggle"
                     hx-get="/pages/contents/projects/parse-content.html"
                     hx-target="#parse-content"
                     hx-trigger="click once"
                     hx-swap="innerHTML"
-                    onclick="toggleProject(this, 'parse-content')"
-                >
-                    <span>📄 General Parsing System</span>
+                    onclick="toggleProject(this, 'parse-content')">
+                    <span>General Parsing System</span>
                     <span class="arrow">▼</span>
                 </button>
-
                 <div id="parse-content" class="project-content hidden"></div>
-
             </div>
 
             <!-- CHATBOT -->
-            <div class="card card--sm project-item">
-
-                <button
-                    class="button button--primary"
+            <div class="project-item">
+                <button class="cv-toggle"
                     hx-get="/pages/contents/projects/chatbot-content.html"
                     hx-target="#chatbot-content"
                     hx-trigger="click once"
                     hx-swap="innerHTML"
-                    onclick="toggleProject(this, 'chatbot-content')"
-                >
-                    <span>🤖 Chatbot Development</span>
+                    onclick="toggleProject(this, 'chatbot-content')">
+                    <span>Chatbot Development</span>
                     <span class="arrow">▼</span>
                 </button>
-
                 <div id="chatbot-content" class="project-content hidden"></div>
-
             </div>
 
             <!-- OLLAMA -->
-            <div class="card card--sm project-item">
-
-                <button
-                    class="button button--primary"
+            <div class="project-item">
+                <button class="cv-toggle"
                     hx-get="/pages/contents/projects/ollama-content.html"
                     hx-target="#ollama-content"
                     hx-trigger="click once"
                     hx-swap="innerHTML"
-                    onclick="toggleProject(this, 'ollama-content')"
-                >
-                    <span>🦙 Local AI with Ollama</span>
+                    onclick="toggleProject(this, 'ollama-content')">
+                    <span>Local AI with Ollama</span>
                     <span class="arrow">▼</span>
                 </button>
-
                 <div id="ollama-content" class="project-content hidden"></div>
-
             </div>
 
             <!-- DEVOPS -->
-            <div class="card card--sm project-item">
-
-                <button
-                    class="button button--primary"
+            <div class="project-item">
+                <button class="cv-toggle"
                     hx-get="/pages/contents/projects/devops-content.html"
                     hx-target="#devops-content"
                     hx-trigger="click once"
                     hx-swap="innerHTML"
-                    onclick="toggleProject(this, 'devops-content')"
-                >
-                    <span>⚙️ DevOps and Infrastructure</span>
+                    onclick="toggleProject(this, 'devops-content')">
+                    <span>DevOps and Infrastructure</span>
                     <span class="arrow">▼</span>
                 </button>
-
                 <div id="devops-content" class="project-content hidden"></div>
-
             </div>
 
             <!-- GAME DEV -->
-            <div class="card card--sm project-item">
-
-                <button
-                    class="button button--primary"
+            <div class="project-item">
+                <button class="cv-toggle"
                     hx-get="/pages/contents/projects/game-content.html"
                     hx-target="#game-content"
                     hx-trigger="click once"
                     hx-swap="innerHTML"
-                    onclick="toggleProject(this, 'game-content')"
-                >
-                    <span>🎮 Game Development</span>
+                    onclick="toggleProject(this, 'game-content')">
+                    <span>Game Development</span>
                     <span class="arrow">▼</span>
                 </button>
-
                 <div id="game-content" class="project-content hidden"></div>
-
             </div>
 
         </div>

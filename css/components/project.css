@@ -1,17 +1,13 @@
-/* Project = just card behavior */
+/* =========================================================
+   PROJECT
+   Base box comes from the card system (see card.css).
+   Only project-specific layout/state lives here.
+   ========================================================= */
 .project-list {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-md);
-	margin-top: var(--space-md);
-}
-
-.project-item {
-	background: var(--surface);
-	border: 1px solid var(--border);
-	border-radius: var(--radius-md);
-	padding: var(--space-md);
-	transition: .2s;
+	gap: var(--space-sm);
+	margin-top: var(--space-sm);
 }
 
 .project-item:hover {

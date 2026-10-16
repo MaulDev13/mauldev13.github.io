@@ -11,13 +11,13 @@
 	font-size: var(--text-sm);
 	font-weight: var(--font-medium);
 	cursor: pointer;
-	transition: .2s;
+	transition: background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
 	line-height: 1;
 }
 
 .button--primary {
 	background: var(--primary);
-	color: #fff;
+	color: var(--text-invert);
 	box-shadow: var(--shadow-sm);
 }
 
@@ -35,11 +35,12 @@
 .button--secondary {
 	background: var(--surface);
 	border: 1px solid var(--border);
+	color: var(--text-body);
 }
 
 .button--secondary:hover {
 	background: var(--surface-soft);
-	border-color: var(--primary-soft);
+	border-color: var(--border-hover);
 }
 
 .button--ghost {

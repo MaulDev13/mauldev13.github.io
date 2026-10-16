@@ -47,8 +47,10 @@
         line-height: 1.4;
     }
 
-    .navbar {
-        display: none;
+    .navbar,
+    .cv-type-banner,
+    .cv-switcher {
+        display: none !important;
     }
 
     .container {
@@ -103,30 +105,76 @@
         margin-bottom: 0.5rem;
     }
 
-    /* Tags simplified */
+    /* -----------------------------------------------------
+       Tags → plain inline text (no boxes) for Word/PDF.
+       Render the tag row as a single readable line with
+       comma separators between items.
+       ----------------------------------------------------- */
+    .tag-row {
+        display: block;
+        margin: 0 0 0.4rem;
+    }
+
     .tag {
-        border: 1px solid #ccc;
-        background: none;
-        padding: 2px 4px;
+        display: inline;
+        border: none !important;
+        background: none !important;
+        box-shadow: none !important;
+        padding: 0;
+        margin: 0;
         font-size: 10pt;
+        color: #000;
+        border-radius: 0;
     }
 
-    /* Buttons hidden */
-    .button {
-        display: none;
+    /* Comma between tags; none after the last one. */
+    .tag:not(:last-child)::after {
+        content: ", ";
     }
 
-    /* Links visible as text */
+    /* Contact rows: readable label + value inline, no fixed-width columns. */
+    .tag-group {
+        display: block;
+    }
+
+    .tag-label {
+        width: auto;
+        padding: 0;
+        margin-right: .35rem;
+        font-weight: var(--font-semibold);
+        color: #000;
+    }
+
+    /* Hide decorative chips/badges and action buttons in print */
+    button.button,
+    .cv-type-badge,
+    .cv-switcher,
+    .cv-switcher-current {
+        display: none !important;
+    }
+
+    /* Keep project links as readable text + show their URL,
+       so a downloaded/exported CV still has working references. */
+    a.button {
+        display: inline;
+        border: none !important;
+        background: none !important;
+        box-shadow: none !important;
+        padding: 0;
+        font-size: 10pt;
+        font-weight: var(--font-regular);
+    }
+
+    a.button::after {
+        content: " — " attr(href);
+        color: #333;
+    }
+
+    /* Other links visible as plain black text */
     a {
         color: #000;
         text-decoration: none;
     }
-
-    /* a::after {
-        content: " (" attr(href) ")";
-        font-size: 10pt;
-        color: #555;
-    } */
 
     .cv-avatar {
         box-shadow: none;

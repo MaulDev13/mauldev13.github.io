@@ -1,38 +1,26 @@
-// Inisialisasi & kontrol
+// Inisialisasi & kontrol kamera (zoom ditangani di IIFE bawah — satu jalur saja)
 (function() {
-    // Fungsi helper zoom
-    window.setZoomBtn = function(delta) {
-        if (window.setZoom) {
-            const newZoom = (parseFloat(document.getElementById('zoom-level')?.innerText) || 100) / 100 + delta;
-            window.setZoom(newZoom);
-        }
-    };
 
     window.resetCameraToAnchor = function() {
-        if (window.centerCamera) {
-            window.centerCamera('node-engineering');
-        }
+        if (window.centerOnAllNodes) window.centerOnAllNodes(true);
     };
 
-    // Fit / reset kamera ke node utama
+    // Fit / reset kamera ke seluruh node
     document.getElementById('fit-btn')?.addEventListener('click', () => {
-        if (window.focusOnNode) window.focusOnNode('node-engineering');
+        if (window.centerOnAllNodes) window.centerOnAllNodes(true);
     });
 
     document.getElementById('reset-cam-btn')?.addEventListener('click', () => {
         if (window.resetCamera) window.resetCamera();
     });
 
-    document.getElementById('zoom-in-btn')?.addEventListener('click', () => window.setZoomBtn(0.1));
-    document.getElementById('zoom-out-btn')?.addEventListener('click', () => window.setZoomBtn(-0.1));
-
-    // Inisialisasi skill tree dengan anchor node engineering
+    // Inisialisasi skill tree — kamera dipusatkan ke seluruh node.
     if (typeof initSkillTree === 'function') {
-        initSkillTree('node-engineering');
+        initSkillTree();
     } else {
         console.warn('initSkillTree belum loaded, coba delay 100ms');
         setTimeout(() => {
-            if (typeof initSkillTree === 'function') initSkillTree('node-engineering');
+            if (typeof initSkillTree === 'function') initSkillTree();
         }, 100);
     }
 })();
@@ -47,9 +35,14 @@
     // VIEWPORT CONSTANTS
     const VIEWPORT_W = 4000;
     const VIEWPORT_H = 4000;
+
+    // ZOOM CONSTANTS (satu sumber kebenaran)
+    const ZOOM_MIN  = 0.3;
+    const ZOOM_MAX  = 2.0;
+    const ZOOM_STEP = 0.1;
     
     // =========================================================
-    // ZOOM FUNCTIONS
+    // ZOOM FUNCTIONS — satu jalur, step konsisten, animasi halus
     // =========================================================
     
     function updateZoomDisplay(zoom) {
@@ -57,91 +50,30 @@
             zoomLevelSpan.textContent = Math.round(zoom * 100) + '%';
         }
     }
-    
-    function zoomIn() {
-        if (window.setZoom) {
-            const currentZoom = window.currentZoom || 1;
-            const newZoom = Math.min(2.0, currentZoom + 0.1);
-            window.setZoom(newZoom);
-            window.currentZoom = newZoom;
-            updateZoomDisplay(newZoom);
-        }
+
+    // Terapkan level zoom baru (clamp + animasi transform di CSS).
+    function setZoomLevel(target) {
+        if (!window.setZoom) return;
+
+        const next = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, Math.round(target * 100) / 100));
+
+        // Aktifkan transisi halus hanya untuk aksi tombol/keyboard.
+        if (viewport) viewport.classList.add('is-zooming');
+
+        window.setZoom(next);          // skill-tree.js: applyZoom + drawLines
+        window.currentZoom = next;
+        updateZoomDisplay(next);
+
+        // Lepas kelas transisi setelah animasi selesai agar drag tetap responsif.
+        clearTimeout(setZoomLevel._t);
+        setZoomLevel._t = setTimeout(() => {
+            if (viewport) viewport.classList.remove('is-zooming');
+            if (window.drawLines) window.drawLines();
+        }, 260);
     }
-    
-    function zoomOut() {
-        if (window.setZoom) {
-            const currentZoom = window.currentZoom || 1;
-            const newZoom = Math.max(0.3, currentZoom - 0.1);
-            window.setZoom(newZoom);
-            window.currentZoom = newZoom;
-            updateZoomDisplay(newZoom);
-        }
-    }
-    
-    // Reset viewport ke center (tanpa mengubah zoom)
-    function resetViewport() {
-        if (!container) return;
-        
-        container.scrollTo({
-            left: (VIEWPORT_W - container.clientWidth) / 2,
-            top: (VIEWPORT_H - container.clientHeight) / 2,
-            behavior: 'smooth'
-        });
-    }
-    
-    // Fit semua node ke viewport
-    function fitAllNodes() {
-        const nodes = document.querySelectorAll('.tree-node, .tree-node--circle, .tree-node--leaf');
-        if (nodes.length === 0) return;
-        
-        // Dapatkan bounding box semua node
-        let minX = Infinity, minY = Infinity;
-        let maxX = -Infinity, maxY = -Infinity;
-        
-        nodes.forEach(node => {
-            const left = parseFloat(node.style.left) || 0;
-            const top = parseFloat(node.style.top) || 0;
-            const right = left + node.offsetWidth;
-            const bottom = top + node.offsetHeight;
-            
-            minX = Math.min(minX, left);
-            minY = Math.min(minY, top);
-            maxX = Math.max(maxX, right);
-            maxY = Math.max(maxY, bottom);
-        });
-        
-        // Tambah padding
-        const padding = 100;
-        const nodesWidth = (maxX - minX) + padding * 2;
-        const nodesHeight = (maxY - minY) + padding * 2;
-        
-        // Hitung zoom yang diperlukan
-        const containerWidth = container.clientWidth;
-        const containerHeight = container.clientHeight;
-        
-        const zoomX = containerWidth / nodesWidth;
-        const zoomY = containerHeight / nodesHeight;
-        const fitZoom = Math.min(zoomX, zoomY, 1.5); // Maksimal 150%
-        
-        // Apply zoom
-        if (window.setZoom) {
-            window.setZoom(fitZoom);
-            window.currentZoom = fitZoom;
-            updateZoomDisplay(fitZoom);
-        }
-        
-        // Scroll ke center bounding box
-        setTimeout(() => {
-            const centerX = (minX + maxX) / 2;
-            const centerY = (minY + maxY) / 2;
-            
-            container.scrollTo({
-                left: centerX - container.clientWidth / 2,
-                top: centerY - container.clientHeight / 2,
-                behavior: 'smooth'
-            });
-        }, 100);
-    }
+
+    function zoomIn()  { setZoomLevel((window.currentZoom || 1) + ZOOM_STEP); }
+    function zoomOut() { setZoomLevel((window.currentZoom || 1) - ZOOM_STEP); }
     
     // Pan controls
     function pan(dx, dy) {
@@ -161,9 +93,16 @@
     document.getElementById('zoom-in-btn')?.addEventListener('click', zoomIn);
     document.getElementById('zoom-out-btn')?.addEventListener('click', zoomOut);
     
-    // Viewport buttons
-    document.getElementById('reset-viewport-btn')?.addEventListener('click', resetViewport);
-    document.getElementById('fit-view-btn')?.addEventListener('click', fitAllNodes);
+
+    // Recenter: pusatkan kamera ke seluruh node (bounding box)
+    document.getElementById('recenter-btn')?.addEventListener('click', () => {
+        if (window.centerOnAllNodes) window.centerOnAllNodes(true);
+    });
+
+    // Reset: kembalikan posisi node ke layout awal (undo drag-and-drop)
+    document.getElementById('reset-layout-btn')?.addEventListener('click', () => {
+        if (window.resetLayout) window.resetLayout();
+    });
     
     // Pan buttons
     document.getElementById('pan-up')?.addEventListener('click', () => pan(0, -100));
@@ -183,10 +122,10 @@
             e.preventDefault();
             zoomOut();
         }
-        // Ctrl + 0 untuk reset viewport
+        // Ctrl + 0 untuk recenter ke semua node
         else if ((e.ctrlKey || e.metaKey) && e.key === '0') {
             e.preventDefault();
-            resetViewport();
+            if (window.centerOnAllNodes) window.centerOnAllNodes(true);
         }
         // Tombol pan dengan arrow keys (tanpa modifier)
         else if (!e.ctrlKey && !e.altKey && !e.shiftKey) {
@@ -199,19 +138,21 @@
         }
     });
     
-    // Track current zoom level
+    // Track current zoom level — simpan nilai yang SUDAH di-clamp
+    // supaya currentZoom tidak melenceng dari zoom asli saat mentok batas.
     if (window.setZoom) {
         const originalSetZoom = window.setZoom;
         window.setZoom = function(value) {
-            window.currentZoom = value;
-            updateZoomDisplay(value);
-            originalSetZoom(value);
+            const clamped = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, value));
+            window.currentZoom = clamped;
+            updateZoomDisplay(clamped);
+            originalSetZoom(clamped);
         };
     }
     
     // Inisialisasi skill tree
     if (typeof initSkillTree === 'function') {
-        initSkillTree('node-engineering');
+        initSkillTree();
         // Set initial zoom display
         setTimeout(() => {
             updateZoomDisplay(window.currentZoom || 1);

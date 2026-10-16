@@ -1,0 +1,124 @@
+<div class="page-stack cv-content" data-cv-type="styled" data-cv-role="backend">
+
+    <div class="cv-switcher">
+        <button class="button button--ghost button--sm"
+            hx-get="/pages/cv.html" hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">← All CVs</button>
+        <span class="cv-switcher-title">Backend CV</span>
+        <span class="cv-switcher-variants">
+            <span class="cv-switcher-current">Styled</span>
+            <button class="button button--secondary button--sm"
+                hx-get="/pages/cv-backend-ats.html" hx-target="#content" hx-swap="innerHTML" hx-indicator="#loading">ATS</button>
+        </span>
+    </div>
+
+    <div class="cv-type-banner cv-type-banner--styled">
+        <span class="cv-type-badge">Styled · Backend</span>
+        <span class="text-meta">APIs, system design, and production-scale services.</span>
+    </div>
+
+    <div class="card">
+        <div class="cv-header">
+            <img src="assets/cv_avatar.jpg" alt="Ahmad Maulana" class="avatar cv-avatar" />
+            <div class="cv-info">
+                <h1>Ahmad Maulana</h1>
+                <p class="text-meta">Backend Developer · Node.js · API & System Engineering</p>
+                <p>
+                    Backend developer focused on building and maintaining production systems. Specialized in
+                    API development, system architecture, and scalable services — with hands-on experience
+                    running a nationwide system handling tens of thousands of requests per day.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h1>Skills</h1>
+        <div class="tag-row">
+            <span class="tag">Node.js</span>
+            <span class="tag">Express</span>
+            <span class="tag">REST API Design</span>
+            <span class="tag">System Architecture</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Elasticsearch</span>
+            <span class="tag">Google Cloud</span>
+            <span class="tag">Gemini AI</span>
+            <span class="tag">SQL</span>
+            <span class="tag">UML / ERD</span>
+            <span class="tag">Git</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <h1>Experience</h1>
+        <div class="card-group">
+            <div class="card">
+                <h3>Freelance Backend Developer</h3>
+                <p class="text-meta">2020 – Present</p>
+                <p>Design and implement backend logic and data models for clients — system design (UML, ERD, flowcharts), scripting, and application logic — with a focus on correctness and problem solving.</p>
+            </div>
+            <div class="card">
+                <h3>Pos Indonesia</h3>
+                <p class="text-meta">Junior Analyst · Dec 2024 – Present</p>
+                <p>Analyze operational and system data to support decisions and improve workflow and system efficiency.</p>
+                <p class="text-meta">Management Trainee · Jul 2024 – Dec 2024</p>
+                <p>Completed a structured training program across logistics, operations, and system workflows.</p>
+            </div>
+            <div class="card">
+                <h3>Sungai Raja Village Office</h3>
+                <p class="text-meta">Jul 2019 – Aug 2019</p>
+                <p>Built a population data management system (Excel VBA) improving data organization and accessibility.</p>
+            </div>
+            <div class="card">
+                <h3>Eka Dura Indonesia</h3>
+                <p class="text-meta">Jan 2018 – Feb 2018</p>
+                <p>Developed Excel VBA systems for data processing and reporting; improved data-handling efficiency.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h1>Projects</h1>
+        <div class="card-group">
+            <div class="project-item">
+                <h3>AI Internal Chatbot System (DARA)</h3>
+                <p class="text-meta">Backend Developer · Production System</p>
+                <p>Developed Node.js (Express) backend services for an AI chatbot deployed across Pos Indonesia.</p>
+                <p>Designed scalable APIs to process natural-language queries over SOPs, workflows, and internal documentation.</p>
+                <p>Serves 4,500+ outlets nationwide at an estimated 13K–45K requests/day; integrated Google Cloud and Gemini AI for retrieval and response generation.</p>
+                <div class="tag-row">
+                    <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">PostgreSQL</span>
+                    <span class="tag">Elasticsearch</span><span class="tag">Google Cloud</span><span class="tag">Gemini AI</span>
+                </div>
+            </div>
+            <div class="project-item">
+                <h3>Personal Portfolio & Project Hub</h3>
+                <p>Public portfolio on GitHub Pages documenting backend and systems work.</p>
+                <div class="tag-row"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+                <a href="https://mauldev13.github.io/" target="_blank" class="button button--secondary button--sm">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h1>Education</h1>
+        <h3>Riau University</h3>
+        <p class="text-meta">Bachelor of Informatics Engineering · 2015 – 2022</p>
+        <h3>MAN 1 Pekanbaru</h3>
+        <p class="text-meta">Natural Science (IPA) · 2012 – 2015</p>
+    </div>
+
+    <div class="card">
+        <h1>Contact</h1>
+        <div class="tag-group">
+            <div class="tag-row"><span class="tag-label text-meta">Email</span><a href="mailto:amadmaul13@gmail.com" class="text-meta">amadmaul13@gmail.com</a></div>
+            <div class="tag-row"><span class="tag-label text-meta">GitHub</span><a href="https://github.com/MaulDev13" target="_blank" class="text-meta">github.com/MaulDev13</a></div>
+            <div class="tag-row"><span class="tag-label text-meta">LinkedIn</span><a href="https://www.linkedin.com/in/ahmad-maulana1397/" target="_blank" class="text-meta">linkedin.com/in/ahmad-maulana1397</a></div>
+            <div class="tag-row"><span class="tag-label text-meta">Portfolio</span><a href="https://mauldev13.github.io/" target="_blank" class="text-meta">mauldev13.github.io</a></div>
+        </div>
+    </div>
+
+    <div class="cv-ats-actions">
+        <button onclick="window.print()" class="button button--primary">Print / Save as PDF</button>
+    </div>
+
+</div>
